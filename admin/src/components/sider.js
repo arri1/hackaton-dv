@@ -17,7 +17,7 @@ const Lider = () => {
         console.log(collapsed, type);
       }}
     >
-      <div className="logo" />
+      <div/>
       <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
         <Menu.Item key="1" icon={<UserOutlined />}>
           nav 1
