@@ -3,19 +3,31 @@ import styled from 'styled-components'
 import { Text, TouchableOpacity, View } from 'react-native'
 const Old = styled(View)`
     display: flex;
-    flex: 1;
     flex-direction: column;
     background-color: white;
     border-radius: 15px;
-    max-height: 100px;
+    margin:10px 15px;
 `
-
+const Row = styled(View)`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+`
+const Padding = styled(View)`
+    padding:10px;
+`
 const Card = (props) => {
-    const { name, description } = props
+    const { name, description, type } = props
     return (
         <Old>
-            <Text>{name}</Text>
+            <Padding>
+            <Row>
+                <Text>{name}</Text>
+                <Text>{type}</Text>
+            </Row>
             <Text>{description}</Text>
+            </Padding>
         </Old>
     )
 }
