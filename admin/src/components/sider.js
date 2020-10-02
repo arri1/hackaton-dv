@@ -3,10 +3,22 @@ import styled from 'styled-components'
 import { Layout, Menu } from 'antd'
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons'
 
-const { Sider } = Layout
+const { Sider } = Layout;
 
+const SiderStyle = styled.div`
+    background-color:white;
+`
+
+const Logo = styled.div`
+    display:flex;
+    align-items: center;
+    background-color: #222222;
+    height:15vh;
+    width:20.5vh;
+`
 const Lider = () => {
     return(
+    <SiderStyle>
     <Sider
       breakpoint="lg"
       collapsedWidth="0"
@@ -15,24 +27,26 @@ const Lider = () => {
       }}
       onCollapse={(collapsed, type) => {
         console.log(collapsed, type);
-      }}
-    >
+      }}>
+
       <div/>
-      <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+      <Menu theme="light" mode="inline" defaultSelectedKeys={['4']}>
+        <Logo></Logo>
         <Menu.Item key="1" icon={<UserOutlined />}>
-          nav 1
+        Главная
         </Menu.Item>
         <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-          nav 2
+        Редактировать
         </Menu.Item>
         <Menu.Item key="3" icon={<UploadOutlined />}>
-          nav 3
+        Мои товары
         </Menu.Item>
         <Menu.Item key="4" icon={<UserOutlined />}>
-          nav 4
+        Заказы
         </Menu.Item>
       </Menu>
     </Sider>
+    </SiderStyle>
     )
 }
 
