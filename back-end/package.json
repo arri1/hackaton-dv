@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon src/app.js",
+    "generate": "node src/generate.js",
     "build": "prisma migrate save --experimental && prisma migrate up --experimental && prisma generate"
   },
   "author": "",

@@ -9,6 +9,14 @@ const User = gql`
     password: String!
     name: String!
     phone: String!
+    orders(
+      where: OrderWhereInput
+      orderBy: OrderOrderByInput
+      cursor: OrderWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: OrderDistinctFieldEnum
+    ): [Order!]!
   }
 
   type Query {

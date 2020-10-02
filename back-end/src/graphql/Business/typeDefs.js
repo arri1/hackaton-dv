@@ -5,12 +5,14 @@ const Business = gql`
     id: String!
     createdAt: DateTime!
     updatedAt: DateTime!
+    login: String!
+    password: String!
     name: String!
+    location: String!
     description: String!
     type: String!
     address: String!
-    location: String!
-    Product(
+    products(
       where: ProductWhereInput
       orderBy: ProductOrderByInput
       cursor: ProductWhereUniqueInput
@@ -18,6 +20,14 @@ const Business = gql`
       skip: Int
       distinct: ProductDistinctFieldEnum
     ): [Product!]!
+    orders(
+      where: OrderWhereInput
+      orderBy: OrderOrderByInput
+      cursor: OrderWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: OrderDistinctFieldEnum
+    ): [Order!]!
   }
 
   type Query {

@@ -8,9 +8,16 @@ const Product = gql`
     name: String!
     description: String!
     cost: String!
-    count: String!
     business: Business!
     businessId: String!
+    Products(
+      where: ProductsWhereInput
+      orderBy: ProductsOrderByInput
+      cursor: ProductsWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: ProductsDistinctFieldEnum
+    ): [Products!]!
   }
 
   type Query {
