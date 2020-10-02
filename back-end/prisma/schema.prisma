@@ -34,4 +34,6 @@ model Product {
     description String
     cost        String
     count       String
+    business    Business  @relation(fields: [businessId], references: [id])
+    businessId  String
 }
