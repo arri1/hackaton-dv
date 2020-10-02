@@ -7,7 +7,7 @@ const Container = styled(View)`
     flex-direction: row;
     flex: 1;
     justify-content: center;
-    margin-top:14px;
+    margin-top: 14px;
 `
 
 const MainCard = styled(View)`
@@ -124,23 +124,29 @@ const data = [
         location: 'Vlad',
         product: 'Apple',
         orders: 'Meet'
-    },
+    }
 ]
 const Markets = ({ navigation }) => {
     return (
         <Container>
             <ScrollView>
-            <TouchableOpacity
-                onPress={() => {
-                    navigation.navigate('MarketDetail')
-                }}
-            >
-                <MainCard>
-                    {data.map((item) => {
-                        return <Card name={item.name} description={item.description} type={item.type}/>
-                    })}
-                </MainCard>
-            </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
+                        navigation.navigate('MarketDetail')
+                    }}
+                >
+                    <MainCard>
+                        {data.map((item) => {
+                            return (
+                                <Card
+                                    name={item.name}
+                                    description={item.description}
+                                    type={item.type}
+                                />
+                            )
+                        })}
+                    </MainCard>
+                </TouchableOpacity>
             </ScrollView>
         </Container>
     )
