@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import apollo from './utils/apollo'
 import Home from './pages/home'
 import { ApolloProvider } from '@apollo/react-hooks'
+import { DatePicker } from 'antd';
+import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 
 const Container = styled.div`
   display: flex;
