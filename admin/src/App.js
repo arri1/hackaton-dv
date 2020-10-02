@@ -1,14 +1,16 @@
+import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import React from 'react'
 import styled from 'styled-components'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { ApolloProvider } from '@apollo/react-hooks'
 import apollo from './utils/apollo'
 import Home from './pages/home'
-import { ApolloProvider } from '@apollo/react-hooks'
+import Sider from './components/sider';
 
 const Container = styled.div`
   display: flex;
   width: 100%;
-  height: 100%;
+  height: 100vh;
 `
 
 const App = () => {
@@ -17,6 +19,7 @@ const App = () => {
             <ApolloProvider client={apollo}>
                 <Router>
                     <Container>
+                        <Sider/>
                         <Switch>
                             <Route exact path={'/'} component={Home} />
                         </Switch>
