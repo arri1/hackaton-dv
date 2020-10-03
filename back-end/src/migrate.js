@@ -1,16 +1,18 @@
-var pg = require('pg');
- 
-let config = {
+const { Client } = require('pg')
+
+const config = {
     user: 'hackathon',
-    password: 'hackathon',
+    database: 'hackathon',
     host: 'localhost',
+    password: 'hackathon',
     port: '5433',
-    database: 'hackathon'
 };
 
-var pool = new pg.Pool(config);
+const client = new Client(config)
 
-pool.query('TRUNCATE _Migration', function(err, res) {
+client.connect()
+
+client.query('TRUNCATE _Migration', function(err, res) {
     if (err) throw err
-    console.log(res.rows)
+    client.end()
 })
