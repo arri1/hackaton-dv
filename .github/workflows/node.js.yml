@@ -24,6 +24,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: (cd ./backend && npm install)
-    - run: (cd ./backend/src && npm install)
-    - run: (cd ./backend/src && npm run build --if-present)
+    - run: (cd ./backend && npm run build --if-present)
+    - run: (cd ./backend && npm run generate --if-present)
     - run: pm2 restart DeployApp
