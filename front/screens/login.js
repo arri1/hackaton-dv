@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
-import {TextInput, View,Button} from "react-native"
+import {Button, TextInput, View} from "react-native"
 import {Title} from "../components/textStyle"
 
 const Contianer = styled(View)`
@@ -34,10 +34,17 @@ const Login = ({navigation}) => {
                 value={password}
             />
             <Button
+                style={{marginTop: 40}}
                 title={'Войти'}
-                onPress={()=>{
-                navigation.replace('Main')
-            }} />
+                onPress={() => {
+                    navigation.replace('Main')
+                }}/>
+            <Button
+                style={{marginTop: 24}}
+                title={'Регистрация'}
+                onPress={() => {
+                    navigation.push('Registration')
+                }}/>
         </Contianer>
     )
 }
