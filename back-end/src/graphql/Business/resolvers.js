@@ -16,7 +16,7 @@ const Business = {
         },
         business: async (_parent, args, {prisma, access}) => {
             const {id} = await access.business()
-            return prisma.organization.findOne({where: {id}})
+            return prisma.business.findOne({where: {id}})
         }
     },
     Mutation: {
