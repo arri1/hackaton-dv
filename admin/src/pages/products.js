@@ -6,7 +6,7 @@ import { BUSINESS } from '../gql/business/query'
 import { GET_PRODUCTS } from '../gql/product/query'
 import LoadingBar from '../components/loadingBar'
 import { Table } from 'antd'
-
+import { useHistory } from 'react-router-dom'
 const Container = styled.div`
     display: flex;
     flex: 1;
@@ -32,7 +32,7 @@ const columns = [
 const Products = () => {
     const [businessId, setBusinessId] = useState(null)
     const [product, setProduct] = useState([])
-
+    const history = useHistory()
     const { loading: businessLoading } = useQuery(BUSINESS, {
         onCompleted: ({ business }) => {
             setBusinessId(business.id)
@@ -70,7 +70,18 @@ const Products = () => {
     return (
         <Container>
             <Title>Товары</Title>
-            <Table style={{ marginTop: 30 }} dataSource={product} columns={columns} />
+            <Table
+                style={{ marginTop: 30 }}
+                dataSource={product}
+                columns={columns}
+                onRow={(record, rowIndex) => {
+                    return {
+                        onClick: (event) => {
+                            history.push('/authorized/productDetail')
+                        }
+                    }
+                }}
+            />
         </Container>
     )
 }
