@@ -6,7 +6,7 @@ import AccountMain from "../screens/accountMain"
 
 const Tab = createBottomTabNavigator()
 
-const MainNavigator = () => {
+const MainNavigator = ({navigation}) => {
     return (
         <Tab.Navigator>
             <Tab.Screen

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, Image} from 'react-native'
+import { Text, View, Image, TouchableOpacity } from 'react-native'
 import styled from 'styled-components'
 
 const Container = styled(View)`
@@ -20,27 +20,27 @@ const Up = styled(View)`
 const Font = styled(Text)`
     font-weight: bold;
     font-size: 18px;
+    color: #2196f3;
 `
 const OFont = styled(Text)`
     font-size: 18px;
-    color: #EE8F01;
-`
-const Imga = styled(View)`
-    display:flex;
-    flex:1;
-    height:50;
-    width:50;
+    color: #ee8f01;
 `
 
-const MarketDetail = ({navigation, route}) => {
-    navigation.setOptions({title:route.params.name})
+const MarketDetail = ({ name , description, type }) => {
     return (
         <Container>
             <Up>
-                <Font>{route.params.name}</Font>
-                <OFont>{route.params.type}</OFont>
+                <TouchableOpacity
+                    onPress={() => {
+                        navigation.pop()
+                    }}
+                >
+                    <Font>{"<"} {name}</Font>
+                </TouchableOpacity>
+
+                <OFont>{type}</OFont>
             </Up>
-            <Image style={Imga} sourse={{uri:'https://dev-gang.ru/static/storage/24808028622541768947383165896446886988.png'}}/>
         </Container>
     )
 }

@@ -7,10 +7,10 @@ const Container = styled(View)`
     flex-direction: row;
     flex: 1;
     justify-content: center;
-    margin-top: 14px;
 `
 
 const MainCard = styled(View)`
+    padding-top: 14px;
     flex: 1;
 `
 
@@ -136,9 +136,9 @@ const Markets = ({ navigation }) => {
                             <TouchableOpacity
                                 onPress={() => {
                                     navigation.navigate('MarketDetail', {
-                                        name:item.name,
-                                        description:item.description,
-                                        type:item.type
+                                        name: item.name,
+                                        description: item.description,
+                                        type: item.type
                                     })
                                 }}
                             >

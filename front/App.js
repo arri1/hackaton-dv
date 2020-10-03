@@ -20,7 +20,7 @@ const App = () => {
             <NavigationContainer>
                 <Stack.Navigator>
                     <Stack.Screen name={'Login'} component={Login}/>
-                    <Stack.Screen name={'Main'} component={MainNavigator}/>
+                    <Stack.Screen name={'Main'} component={MainNavigator} options={{title: ""}}/>
                 </Stack.Navigator>
             </NavigationContainer>
         </Container>
