@@ -12,7 +12,7 @@ const client = new Client(config)
 
 client.connect()
 
-client.query('TRUNCATE _Migration', function(err, res) {
+client.query('drop table "_Migration"', function(err, res) {
     if (err) throw err
     client.end()
 })
