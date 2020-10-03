@@ -52,7 +52,7 @@ model Product {
     id          String    @default(cuid()) @id
     createdAt   DateTime  @default(now())
     updatedAt   DateTime  @updatedAt
-    name        String    @unique
+    name        String
     description String
     cost        String
     business    Business  @relation(fields: [businessId], references: [id])
