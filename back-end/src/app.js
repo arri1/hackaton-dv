@@ -1,11 +1,11 @@
 const {GraphQLServer} = require('graphql-yoga')
 const {PrismaClient} = require('@prisma/client')
 const {PrismaSelect} = require('@paljs/plugins')
-const dotenv = require('dotenv')
 const {typeDefs} = require('./graphql/typeDefs')
 const {resolvers} = require('./graphql/resolvers')
 const {checkRole} = require('./utils/auth')
-dotenv.config()
+
+require('dotenv').config()
 
 const prisma = new PrismaClient()
 
