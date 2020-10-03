@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
-import { FieldTitle, Title } from '../components/textStyled'
-import { Button, Input, message } from 'antd'
-import { useMutation } from '@apollo/react-hooks'
-import { CREATE_ONE_PRODUCT } from '../gql/product/mutation'
+import {FieldTitle, Title} from '../components/textStyled'
+import {Button, Input, message} from 'antd'
+import {useMutation} from '@apollo/react-hooks'
+import {CREATE_ONE_PRIVATE_PRODUCT} from '../gql/product/mutation'
 import LoadingBar from '../components/loadingBar'
 
 const Container = styled.div`
@@ -28,9 +28,9 @@ const AddProudct = () => {
     const [description, setDescription] = useState('')
     const [cost, setCost] = useState(0)
 
-    const [createOneProduct, { loading }] = useMutation(CREATE_ONE_PRODUCT, {
+    const [createOneProduct, {loading}] = useMutation(CREATE_ONE_PRIVATE_PRODUCT, {
         onCompleted: () => {
-
+            message.success('Добавлено')
         },
         onError: () => {
             message.error('Что то пошло не так')
@@ -52,14 +52,14 @@ const AddProudct = () => {
                 data: {
                     name,
                     description,
-                    cost:cost+''
+                    cost: cost + ''
                 }
             }
         })
     }
 
     if (loading)
-        return <LoadingBar />
+        return <LoadingBar/>
 
     return (
         <Container>
@@ -72,8 +72,8 @@ const AddProudct = () => {
                         onChange={(e) => {
                             setName(e.target.value)
                         }}
-                        style={{ marginTop: 16 }}
-                        placeholder={'Введите название'} />
+                        style={{marginTop: 16}}
+                        placeholder={'Введите название'}/>
                 </Item>
                 <Item>
                     <FieldTitle>Описание</FieldTitle>
@@ -82,8 +82,8 @@ const AddProudct = () => {
                         onChange={(e) => {
                             setDescription(e.target.value)
                         }}
-                        style={{ marginTop: 16 }}
-                        placeholder={'Введите описание'} />
+                        style={{marginTop: 16}}
+                        placeholder={'Введите описание'}/>
                 </Item>
                 <Item>
                     <FieldTitle>Стоимость</FieldTitle>
@@ -92,9 +92,9 @@ const AddProudct = () => {
                         onChange={(e) => {
                             setCost(e.target.value)
                         }}
-                        style={{ marginTop: 16 }}
+                        style={{marginTop: 16}}
                         type={'number'}
-                        placeholder={'Введите стоимость'} />
+                        placeholder={'Введите стоимость'}/>
                 </Item>
             </Content>
             <Button onClick={onAdd}>Добавить</Button>
