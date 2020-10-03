@@ -52,7 +52,7 @@ const App = () => {
                         <Switch>
                             <NormalPadding>
                                 <Route exact path={'/authorized/home'} component={Home} />
-                                <Route exact path={'/authorized/addProduct'} component={AddProudct} />
+                                <Route exact path={'/authorized/addProducts'} component={AddProudct} />
                             </NormalPadding>
                         </Switch>
                     </Route>
