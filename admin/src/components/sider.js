@@ -27,7 +27,10 @@ const Sider = () => {
                     Главная
                 </Menu.Item>
                 <Menu.Item
-                    key="2"
+                    key="/authorized/products"
+                    onClick={() => {
+                        history.push('/authorized/products')
+                    }}
                     icon={<UploadOutlined />}>
                     Мои товары
                 </Menu.Item>

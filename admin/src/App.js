@@ -10,6 +10,7 @@ import Login from './pages/login'
 import { BUSINESS } from './gql/business/query'
 import Home from './pages/home'
 import AddProudct from './pages/addProduct'
+import Products from "./pages/products"
 
 const Container = styled.div`
   display: flex;
@@ -64,6 +65,7 @@ const App = () => {
                             <NormalPadding>
                                 <Route exact path={'/authorized/home'} component={Home} />
                                 <Route exact path={'/authorized/addProducts'} component={AddProudct} />
+                                <Route exact path={'/authorized/products'} component={Products} />
                             </NormalPadding>
                         </Switch>
                     </Route>
