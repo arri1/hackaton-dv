@@ -3,13 +3,13 @@
 
 # Папка [admin](https://github.com/arri1/hackaton-dv/tree/main/admin)
 В этой папке находиться исходный код панели управления поставщика
-Это веб-приложение написано на ReactJS
+*Это веб-приложение написано на ReactJS*
 
 # Папка [back-end](https://github.com/arri1/hackaton-dv/tree/main/back-end)
 В этой папке находиться сервер этого проекта
-Этот сервер написан на NodeJS
+*Этот сервер написан на NodeJS*
 
 
 # Папка [front](https://github.com/arri1/hackaton-dv/tree/main/front)
 В этой папке находиться исходный код мобильного приложения
-Это веб-приложение написано на React Native
+*Это веб-приложение написано на React Native*
