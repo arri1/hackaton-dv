@@ -52,7 +52,7 @@ const AddProudct = () => {
                 data: {
                     name,
                     description,
-                    cost
+                    cost:cost+''
                 }
             }
         })
