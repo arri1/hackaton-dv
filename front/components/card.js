@@ -27,7 +27,7 @@ const Card = (props) => {
             <Padding>
                 <Row>
                     <Text>{name}</Text>
-                    <Text>{type}</Text>
+                    <Text style={{color: "orange"}}>{type}</Text>
                 </Row>
                 <Text>{description}</Text>
             </Padding>
