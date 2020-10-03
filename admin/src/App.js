@@ -12,6 +12,7 @@ import Home from './pages/home'
 import AddProudct from './pages/addProduct'
 import Products from "./pages/products"
 import ProductDetail from './pages/productDetail'
+import Orders from "./pages/orders"
 const Container = styled.div`
   display: flex;
   width: 100%;
@@ -67,6 +68,7 @@ const App = () => {
                                 <Route exact path={'/authorized/addProducts'} component={AddProudct} />
                                 <Route exact path={'/authorized/products'} component={Products} />
                                 <Route exact path={'/authorized/productDetail'} component={ProductDetail} />
+                                <Route exact path={'/authorized/Orders'} component={Orders} />
                             </NormalPadding>
                         </Switch>
                     </Route>
