@@ -26,6 +26,7 @@ model Order {
     business    Business  @relation(fields: [businessId], references: [id])
     businessId  String
     products    Products[]
+    status      OrderStatus
 }
 
 model Products{
@@ -57,4 +58,9 @@ model Product {
     cost        String
     business    Business  @relation(fields: [businessId], references: [id])
     businessId  String
+}
+enum OrderStatus{
+    AWAITED
+    INPROGRESS
+    DONE
 }

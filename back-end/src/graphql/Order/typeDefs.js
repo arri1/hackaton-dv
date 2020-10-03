@@ -19,6 +19,7 @@ const Order = gql`
     ): [Products!]!
     User: User
     userId: String
+    status: OrderStatus!
   }
 
   type Query {
