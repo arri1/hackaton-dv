@@ -18,18 +18,24 @@ const Container = styled.div`
 `
 
 const App = () => {
-    const [business, setBusiness] = useState(null)
+    const [logged, setLogged] = useState(async () => {
+        const result = await apollo.query({ query: BUSINESS, fetchPolicy: 'catch-only', errorPolicy: 'ignore' })
+        return (result && result.data && result.business)
+
+    })
     useEffect(() => {
         apollo.watchQuery({
             query: BUSINESS,
             fetchPolicy: 'cache-and-network'
         }).subscribe({
-            next: ({ data }) => {
+            next: (res) => {
+                const { data } = res
                 if (data && data.business) {
-                    setBusiness(data.business)
+                    setLogged(true)
                     return null
                 }
-                setBusiness(null)
+                setLogged(false)
+
             }
         })
     }, [])
@@ -37,17 +43,22 @@ const App = () => {
         <ApolloProvider client={apollo}>
             <Router>
                 <Container>
-                    {!business ? <Route exact path={'/'}
-                                        component={
-                                            (props) => {
-                                                return (
-                                                    <NormalPadding>
-                                                        <Login {...props} />
-                                                    </NormalPadding>
-                                                )
-                                            }} /> : <Redirect from={'/'} to={'/authorized/home'} />}
+                    <Route exact path={'/'}
+                           component={
+                               (props) => {
+                                   return (
+                                       <NormalPadding>
+                                           <Login {...props} />
+                                       </NormalPadding>
+                                   )
+                               }} />
                     <Route exact path='/authorized/:path?/'>
-                        {!business ? <Redirect to={'/'} /> : null}
+                        {!logged ? () => {
+                                return (
+                                    <Redirect to={'/'} />
+                                )
+                            }
+                            : null}
                         <Sider />
                         <Switch>
                             <NormalPadding>
@@ -56,6 +67,8 @@ const App = () => {
                             </NormalPadding>
                         </Switch>
                     </Route>
+
+
                 </Container>
             </Router>
         </ApolloProvider>

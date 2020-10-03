@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, {useState } from 'react'
 import styled from 'styled-components'
 import { Lable, Title } from '../components/textStyled'
 import { Button, Input, message, Spin } from 'antd'
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
 import { AUTH_BUSINESS } from '../gql/business/mutation'
 import { BUSINESS } from '../gql/business/query'
+import {useHistory} from 'react-router-dom'
 
 const Container = styled.div`
   display: flex;
@@ -22,11 +23,13 @@ const Content = styled.div`
 
 const Login = () => {
     const client = useApolloClient()
+    const history = useHistory()
 
     const [onAuth, { loading }] = useMutation(AUTH_BUSINESS, {
         onCompleted: ({ authBusiness: { business, token } }) => {
             localStorage.setItem('token', token)
             client.writeQuery({ query: BUSINESS, data: { business } })
+            history.replace('/authorized/home')
         },
         onError: () => {
 

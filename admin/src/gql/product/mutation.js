@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-export const CREATE_ONE_BUSINESS=gql`
+export const CREATE_ONE_PRODUCT=gql`
     mutation ($data:ProductCreateInput!){
         createOneProduct(data: $data){
             id

@@ -1,11 +1,19 @@
 import React from 'react'
-import { Layout, Menu } from 'antd'
+import { Layout, Menu, Popconfirm } from 'antd'
+import { useApolloClient } from '@apollo/react-hooks'
 import { UploadOutlined, UserOutlined } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
+import { BUSINESS } from '../gql/business/query'
 
 const { Sider: AntSider } = Layout
 const Sider = () => {
     const history = useHistory()
+    const apollo = useApolloClient()
+    const logOut = () => {
+        localStorage.setItem('token', '')
+        apollo.writeQuery({ query: BUSINESS, data: { business: null } })
+        history.replace('/')
+    }
     return (
         <AntSider
             onBreakpoint={broken => {
@@ -38,10 +46,15 @@ const Sider = () => {
 
                     Добавить товары
                 </Menu.Item>
+
                 <Menu.Item
                     key="4"
                     icon={<UserOutlined />}>
-                    Профиль
+                    <Popconfirm
+                        onConfirm={logOut}
+                        title="Вы уверены？" okText="Да" cancelText="Нет">
+                        Выйти
+                    </Popconfirm>
                 </Menu.Item>
             </Menu>
         </AntSider>
