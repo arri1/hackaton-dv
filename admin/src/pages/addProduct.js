@@ -20,8 +20,6 @@ const Item = styled.div`
   margin-bottom: 16px;
   margin-right: 16px;
 `
-
-
 const AddProudct = () => {
 
     return (
@@ -30,19 +28,19 @@ const AddProudct = () => {
             <Content>
                 <Item>
                     <FieldTitle>Бизнес</FieldTitle>
-                    <Input style={{marginTop:16}} placeholder={'Введите ид бизнеса'}/>
+                    <Input style={{ marginTop: 16 }} placeholder={'Введите ид бизнеса'} />
                 </Item>
                 <Item>
                     <FieldTitle>Название</FieldTitle>
-                    <Input style={{marginTop:16}} placeholder={'Введите название'}/>
+                    <Input style={{ marginTop: 16 }} placeholder={'Введите название'} />
                 </Item>
                 <Item>
                     <FieldTitle>Описание</FieldTitle>
-                    <Input style={{marginTop:16}} placeholder={'Введите описание'}/>
+                    <Input style={{ marginTop: 16 }} placeholder={'Введите описание'} />
                 </Item>
                 <Item>
                     <FieldTitle>Стоимость</FieldTitle>
-                    <Input style={{marginTop:16}} placeholder={'Введите стоимость'}/>
+                    <Input style={{ marginTop: 16 }} placeholder={'Введите стоимость'} />
                 </Item>
             </Content>
         </Container>

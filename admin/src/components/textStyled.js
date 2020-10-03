@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 
 export const Title = styled.div`
@@ -9,7 +8,6 @@ export const Title = styled.div`
 `
 export const Lable = styled.div`
     font-style: normal;
-    font-weight: bold;
     font-size: 18px;
     line-height: 22px;
 `
