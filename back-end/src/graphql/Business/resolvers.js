@@ -35,7 +35,7 @@ const Business = {
             const {password, login} = data
             const business = await prisma.business.findOne({where: {login}})
             const compare = bcrypt.compareSync(password, business.password)
-            if (!compare) throw new Error('password incorrect')
+            if (!compare) throw new Error('Incorrect password')
             const token = await jwt.sign({id: business.id}, process.env.BUSINESS_SECRET)
             return {
                 token,

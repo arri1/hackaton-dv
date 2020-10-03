@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon src/app.js",
     "generate": "node src/generate.js",
-    "build": "prisma migrate save --experimental && prisma migrate up --experimental && prisma generate"
+    "build": "node src/migrate.js && npx prisma migrate save --experimental -n '' && npx prisma migrate up --experimental && npx prisma generate"
   },
   "author": "",
   "license": "ISC",
@@ -20,7 +20,8 @@
     "graphql-tag": "^2.11.0",
     "graphql-tools": "^6.2.0",
     "graphql-yoga": "^1.18.3",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.3.3"
   },
   "devDependencies": {
     "@prisma/cli": "^2.8.0",

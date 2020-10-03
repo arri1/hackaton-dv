@@ -1,3 +1,8 @@
+const bcrypt = require('bcryptjs')
+const { printSchemaWithDirectives } = require('graphql-tools')
+const jwt = require('jsonwebtoken')
+const { Business } = require('../Business/resolvers')
+
 const User = {
   Query: {
     findOneUser: (_parent, args, { prisma }) => {
@@ -14,6 +19,28 @@ const User = {
     },
   },
   Mutation: {
+     registerUser: async (_parent, {data}, { prisma }) => {
+       const {password} = data
+       passwordBcrypt = await bcrypt.hash(password, 10)
+       data.password = passwordBcrypt
+       const user = await prisma.user.create({data})
+       const token = jwt.sign({id: user.id}, process.env.USER_SECRET)
+       return {
+         user,
+         token
+       }
+     },
+     authUser: async (_parent, {data}, { prisma }) => {
+       const {password, email} = data
+       const user = await prisma.user.findOne({where: {email}})
+       const compare = bcrypt.compareSync(password, business.compare)
+       if (!compare) throw new Error("Incorrect password")
+       const token = await jwt.sign({id: user.id}, process.env.USER_SECRET)
+       return {
+         token,
+         user
+       }
+     },
     createOneUser: (_parent, args, { prisma }) => {
       return prisma.user.create(args)
     },
@@ -31,7 +58,7 @@ const User = {
     },
     updateManyUser: (_parent, args, { prisma }) => {
       return prisma.user.updateMany(args)
-    },
+    }
   },
 }
 
