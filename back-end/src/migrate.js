@@ -5,7 +5,7 @@ const config = {
     database: 'hackathon',
     host: 'localhost',
     password: 'hackathon',
-    port: '5433',
+    port: 5433,
 };
 
 const client = new Client(config)
