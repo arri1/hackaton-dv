@@ -3,3 +3,6 @@
 data
 /prisma/migrations
 node_modules
+.graphqlconfig
+schema.graphql
+/newGraphql

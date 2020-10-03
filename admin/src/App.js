@@ -7,6 +7,7 @@ import apollo from './utils/apollo'
 import Home from './pages/home'
 import Sider from './components/sider';
 import { NormalPadding } from './components/padding'
+import AddProudct from './pages/addProduct'
 
 const Container = styled.div`
   display: flex;
@@ -18,12 +19,12 @@ const App = () => {
     return (
         <div>
             <ApolloProvider client={apollo}>
-                <Router>
+                <Router >
                     <Container>
                         <Sider/>
                         <Switch>
                             <NormalPadding>
-                                <Route exact path={'/'} component={Home} />
+                                <Route exact path={'/'} component={AddProudct} />
                             </NormalPadding>
                         </Switch>
                     </Container>

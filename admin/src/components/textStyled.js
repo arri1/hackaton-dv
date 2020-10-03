@@ -13,3 +13,9 @@ export const Lable = styled.div`
     font-size: 18px;
     line-height: 22px;
 `
+export const FieldTitle = styled.div`
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+`
