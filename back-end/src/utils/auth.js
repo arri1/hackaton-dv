@@ -21,7 +21,7 @@ const checkRole = async (authorization, role, prisma, require) => {
         }
     )
 
-    if (error) return throw new Error('Not access')
+    if (error) return null
 
     return verify
 }

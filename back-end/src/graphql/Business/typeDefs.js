@@ -47,6 +47,7 @@ const Business = gql`
     }
 
     type Query {
+        business:Business
         findOneBusiness(where: BusinessWhereUniqueInput!): Business
         findManyBusiness(
             where: BusinessWhereInput
