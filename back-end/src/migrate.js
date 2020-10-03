@@ -7,6 +7,8 @@ db.config({
     database: 'hackathon' 
 });
 
-db.query('TRUNCATE _Migration;', function (err, albums) {
+db.query([
+    ['TRUNCATE _Migration']
+], function (err, albums, genres, comments) {
     if (err) throw err
 });
