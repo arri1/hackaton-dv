@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
-import {TextInput, View} from "react-native"
+import {TextInput, View,Button} from "react-native"
 import {Title} from "../components/textStyle"
 
 const Contianer = styled(View)`
@@ -19,7 +19,7 @@ const StyledTextInput = styled(TextInput)`
   padding: 0 5%;
   margin-top: 24px;
 `
-const Login = () => {
+const Login = ({navigation}) => {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     return (
@@ -33,6 +33,11 @@ const Login = () => {
                 onChangeText={text => setPassword(text)}
                 value={password}
             />
+            <Button
+                title={'Войти'}
+                onPress={()=>{
+                navigation.replace('Main')
+            }} />
         </Contianer>
     )
 }

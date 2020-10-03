@@ -29,7 +29,7 @@ const data = [
     {
         id: '3122',
         login: 'gold9208',
-        name: 'Пятерочка',
+        name: 'Ашан',
         type: 'Продукты',
         description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
         address: 'Lenina 1',
@@ -130,23 +130,27 @@ const Markets = ({ navigation }) => {
     return (
         <Container>
             <ScrollView>
-                <TouchableOpacity
-                    onPress={() => {
-                        navigation.navigate('MarketDetail')
-                    }}
-                >
-                    <MainCard>
-                        {data.map((item) => {
-                            return (
+                <MainCard>
+                    {data.map((item) => {
+                        return (
+                            <TouchableOpacity
+                                onPress={() => {
+                                    navigation.navigate('MarketDetail', {
+                                        name:item.name,
+                                        description:item.description,
+                                        type:item.type
+                                    })
+                                }}
+                            >
                                 <Card
                                     name={item.name}
                                     description={item.description}
                                     type={item.type}
                                 />
-                            )
-                        })}
-                    </MainCard>
-                </TouchableOpacity>
+                            </TouchableOpacity>
+                        )
+                    })}
+                </MainCard>
             </ScrollView>
         </Container>
     )

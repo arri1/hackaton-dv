@@ -11,14 +11,12 @@ const Stack = createStackNavigator()
 const {width, height} = Dimensions.get('screen')
 
 const Container = styled(SafeAreaView)`
-  width: ${width};
-  height: ${height};
+    width: ${width};
+    height: ${height};
 `
-
 const App = () => {
     return (
         <Container>
-
             <NavigationContainer>
                 <Stack.Navigator>
                     <Stack.Screen name={'Login'} component={Login}/>
@@ -26,9 +24,6 @@ const App = () => {
                 </Stack.Navigator>
             </NavigationContainer>
         </Container>
-
     )
 }
 export default App
-
-
