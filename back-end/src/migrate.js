@@ -1,14 +1,16 @@
-var db = require('postgresql-query');
+var pg = require('pg');
  
-db.config({
-    username: 'hackathon',
+let config = {
+    user: 'hackathon',
     password: 'hackathon',
-    host: 'localhost:5433',
-    database: 'hackathon' 
-});
+    host: 'localhost',
+    port: '5433',
+    database: 'hackathon'
+};
 
-db.query([
-    ['TRUNCATE _Migration']
-], function (err, albums, genres, comments) {
+var pool = new pg.Pool(config);
+
+pool.query('TRUNCATE _Migration', function(err, res) {
     if (err) throw err
-});
+    console.log(res.rows)
+})
