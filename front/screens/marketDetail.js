@@ -32,12 +32,13 @@ const Imga = styled(View)`
     width:50;
 `
 
-const MarketDetail = () => {
+const MarketDetail = ({navigation, route}) => {
+    navigation.setOptions({title:route.params.name})
     return (
         <Container>
             <Up>
-                <Font>Пятерочка</Font>
-                <OFont>Продукты</OFont>
+                <Font>{route.params.name}</Font>
+                <OFont>{route.params.type}</OFont>
             </Up>
             <Image style={Imga} sourse={{uri:'https://dev-gang.ru/static/storage/24808028622541768947383165896446886988.png'}}/>
         </Container>
