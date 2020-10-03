@@ -4,11 +4,12 @@ import Markets from '../screens/markets'
 import MarketDetail from '../screens/marketDetail'
 
 const Stack = createStackNavigator()
-const MarketNavigator = () => {
+const MarketNavigator = (props) => {
+    const { name } = props
     return (
         <Stack.Navigator>
-            <Stack.Screen name={'Market'} component={Markets} />
-            <Stack.Screen name={'MarketDetail'} component={MarketDetail} />
+            <Stack.Screen name={'Market'} options={{title:"Магазины"}} component={Markets} />
+            <Stack.Screen name={'MarketDetail'} options={({ route }) => ({ title: "Магазин" })} component={MarketDetail} />
         </Stack.Navigator>
     )
 }
