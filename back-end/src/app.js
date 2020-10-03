@@ -4,6 +4,7 @@ const {PrismaSelect} = require('@paljs/plugins')
 const dotenv = require('dotenv')
 const {typeDefs} = require('./graphql/typeDefs')
 const {resolvers} = require('./graphql/resolvers')
+const {checkRole} = require('./utils/auth')
 dotenv.config()
 
 const prisma = new PrismaClient()
@@ -24,9 +25,28 @@ const server = new GraphQLServer({
     resolvers,
     middlewares: [middleware],
     context: (req) => {
+        const {authorization} = req.request.headers
+
+        const access = {
+            user: () => checkRole(authorization, 'user', prisma, true),
+            business: () => checkRole(authorization, 'business', prisma, true),
+            or: async (...roles) => {
+                const checks = await Promise.all(roles.map(async role => {
+                    return await checkRole(authorization, role, prisma, false)
+                }))
+                const find = checks.find(object => object)
+
+                if (find) {
+                    return find
+                } else {
+                    throw new Error('Not access')
+                }
+            }
+        }
         return {
-            prisma
+            prisma,
+            access
         }
     }
 })
-server.start({port:7777},() => console.log('Server is running on localhost:7777'))
+server.start({port: 7777}, () => console.log('Server is running on localhost:7777'))

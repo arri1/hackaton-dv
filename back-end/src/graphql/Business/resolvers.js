@@ -14,6 +14,10 @@ const Business = {
         aggregateBusiness: (_parent, args, {prisma}) => {
             return prisma.business.aggregate(args)
         },
+        business: async (_parent, args, {prisma, access}) => {
+            const {id} = await access.business()
+            return prisma.organization.findOne({where: {id}})
+        }
     },
     Mutation: {
         registrationOneBusiness: async (_parent, {data}, {prisma}) => {
