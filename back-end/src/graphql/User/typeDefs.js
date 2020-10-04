@@ -1,4 +1,4 @@
-const { default: gql } = require('graphql-tag')
+const {default: gql} = require('graphql-tag')
 
 const User = gql`
     type User {
@@ -8,6 +8,7 @@ const User = gql`
         email: String!
         name: String
         phone: String
+        address: String
         orders(
             where: OrderWhereInput
             orderBy: OrderOrderByInput
@@ -26,8 +27,9 @@ const User = gql`
     input RegistrationUserInput {
         email: String!
         password: String!
-        name: String!
-        phone: String!
+        name: String
+        phone: String
+        address: String
     }
 
     type AuthUserOutput {

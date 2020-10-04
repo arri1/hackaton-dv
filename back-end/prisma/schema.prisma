@@ -15,6 +15,7 @@ model User {
     password  String?
     name      String?
     phone     String?
+    address   String?
     orders    Order[]
 }
 model Order {
