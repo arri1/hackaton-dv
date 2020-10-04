@@ -34,7 +34,8 @@ const Login = ({navigation}) => {
         },
         onError: () => {
 
-        }
+        },
+        fetchPolicy:'cache-first'
     })
 
     const [onAuth, {loading: authLoading}] = useMutation(AUTH, {
