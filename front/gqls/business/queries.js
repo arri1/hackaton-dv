@@ -8,6 +8,11 @@ export const GET_BUSINESS=gql`
             address
             name
             type
+            products{
+                name
+                cost
+                description
+            }
         }
     }
 `
