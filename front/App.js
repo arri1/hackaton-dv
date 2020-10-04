@@ -23,10 +23,12 @@ const App = () => {
         <Container>
             <ApolloProvider client={apollo}>
                 <NavigationContainer>
-                    <Stack.Navigator>
+                    <Stack.Navigator headerMode={'none'}>
                         <Stack.Screen name={'Login'} component={Login}/>
                         <Stack.Screen name={'Registration'} component={Registration}/>
-                        <Stack.Screen name={'Main'} component={MainNavigator}/>
+                        <Stack.Screen name={'Main'}
+                                      navigationOptions={{header: null}}
+                                      component={MainNavigator}/>
                     </Stack.Navigator>
                 </NavigationContainer>
             </ApolloProvider>

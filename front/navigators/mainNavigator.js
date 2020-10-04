@@ -8,7 +8,7 @@ const Tab = createBottomTabNavigator()
 
 const MainNavigator = () => {
     return (
-        <Tab.Navigator>
+        <Tab.Navigator >
             <Tab.Screen
                 name="MarketsNavigation"
                 component={MarketNavigator}

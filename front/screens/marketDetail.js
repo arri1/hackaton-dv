@@ -1,46 +1,41 @@
 import React from 'react'
-import { Text, View, Image} from 'react-native'
+import {ScrollView, TouchableOpacity,Text} from 'react-native'
 import styled from 'styled-components'
 
-const Container = styled(View)`
-    display: flex;
+const Container = styled(ScrollView)`
     flex-direction: column;
-    border-radius: 15px;
-    margin-top: 20px;
-    margin-bottom: 5px;
-    margin-left: 15px;
-    margin-right: 15px;
-`
-const Up = styled(View)`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 10px;
-`
-const Font = styled(Text)`
-    font-weight: bold;
-    font-size: 18px;
-`
-const OFont = styled(Text)`
-    font-size: 18px;
-    color: #EE8F01;
-`
-const Imga = styled(View)`
-    display:flex;
-    flex:1;
-    height:50;
-    width:50;
+    margin: 15px;
+    flex: 1;
 `
 
 const MarketDetail = ({navigation, route}) => {
-    navigation.setOptions({title:route.params.name})
+    navigation.setOptions({title: route.params.name})
+    const products = route.params.products
     return (
         <Container>
-            <Up>
-                <Font>{route.params.name}</Font>
-                <OFont>{route.params.type}</OFont>
-            </Up>
-            <Image style={Imga} sourse={{uri:'https://dev-gang.ru/static/storage/24808028622541768947383165896446886988.png'}}/>
+            {
+                products.map(item => {
+                    return (
+                        <TouchableOpacity
+                            style={
+                                {
+                                    borderRadius: 20,
+                                    padding: 5,
+                                    borderWidth: 1,
+                                    borderColor: 'gray',
+                                    flexDirection: 'column'
+                                }
+                            }
+                        >
+                            <Text>{item.name}</Text>
+                            <Text>{item.description}</Text>
+                            <Text>{item.cost}</Text>
+
+
+                        </TouchableOpacity>
+                    )
+                })
+            }
         </Container>
     )
 }

@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import {useQuery} from '@apollo/react-hooks'
 import {ScrollView, TouchableOpacity, View} from 'react-native'
@@ -35,11 +35,13 @@ const Markets = ({navigation}) => {
                     {data.map((item) => {
                         return (
                             <TouchableOpacity
+                                key={item.id}
                                 onPress={() => {
                                     navigation.navigate('MarketDetail', {
                                         name: item.name,
                                         description: item.description,
-                                        type: item.type
+                                        type: item.type,
+                                        products: item.products
                                     })
                                 }}
                             >
