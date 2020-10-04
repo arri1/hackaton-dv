@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 import {AsyncStorage, Button, TextInput, View} from "react-native"
 import {Title} from "../components/textStyle"
-import {useApolloClient, useMutation} from '@apollo/react-hooks'
+import {useApolloClient, useMutation,useQuery} from '@apollo/react-hooks'
 import {AUTH} from "../gqls/user/mutations"
 import {USER} from "../gqls/user/queries"
 import LoadingBar from "../components/loadingBar"
