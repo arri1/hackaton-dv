@@ -16,16 +16,16 @@ const Container = styled.div`
 const Home = () => {
     const client = useApolloClient()
 
-    const [onRegister, { loading }] = useMutation(UPDATE_BUSSINESS, {
-        onCompleted: ({ businessWhereUniqueInput: { Business, token } }) => {
-            localStorage.setItem('token', token)
-            client.writeQuery({ query: BUSSIN, data: { Business } })
-            message.success('все хорошо')
-        },
-        onError: (err) => {
-            message.error('что-то пошло не так')
-        }
-    })
+    // const [onRegister, { loading }] = useMutation(UPDATE_BUSSINESS, {
+    //     onCompleted: ({ updateOneBusiness: { Business, token } }) => {
+    //         localStorage.setItem('token', token)
+    //         client.writeQuery({ query: BUSSIN, data: { Business } })
+    //         message.success('все хорошо')
+    //     },
+    //     onError: (err) => {
+    //         message.error('что-то пошло не так')
+    //     }
+    // })
     const [userData, setUserData] = useState()
     const [name, setName] = useState()
     const [login, setLogin] = useState()
@@ -53,50 +53,50 @@ const Home = () => {
             console.log('efe', business)
         }
     })
-    if (loading)
-        return (
-            <Container>
-                <Content>
-                    <Spin />
-                </Content>
-            </Container>
-        )
-    const postUser = () => {
-        if (name === '') {
-            message.error('name err')
-            return null
-        }
-        if (description === '') {
-            message.error('description err')
-            return null
-        }
-        if (type === '') {
-            message.error('type err')
-            return null
-        }
-        if (address === '') {
-            message.error('address err')
-            return null
-        }
-        if (login === '') {
-            message.error('login')
-        }
-        onRegister({
-            variables: {
-                data: {
-                    name,
-                    type,
-                    address,
-                    description,
-                    login,
-                    createdAt,
-                    orders,
-                    updatedAt,
-                    products
-                }
-            }
-        })
-    }
+    // if (loading)
+    //     return (
+    //         <Container>
+    //             <Content>
+    //                 <Spin />
+    //             </Content>
+    //         </Container>
+    //     )
+    // const postUser = () => {
+    //     if (name === '') {
+    //         message.error('name err')
+    //         return null
+    //     }
+    //     if (description === '') {
+    //         message.error('description err')
+    //         return null
+    //     }
+    //     if (type === '') {
+    //         message.error('type err')
+    //         return null
+    //     }
+    //     if (address === '') {
+    //         message.error('address err')
+    //         return null
+    //     }
+    //     if (login === '') {
+    //         message.error('login')
+    //     }
+    //     onRegister({
+    //         variables: {
+    //             data: {
+    //                 name,
+    //                 type,
+    //                 address,
+    //                 description,
+    //                 login,
+    //                 createdAt,
+    //                 orders,
+    //                 updatedAt,
+    //                 products
+    //             }
+    //         }
+    //     })
+    // }
 
     console.log('user', userData)
     return (
@@ -183,9 +183,9 @@ const Home = () => {
                         setProducts(event.target.value)
                     }}
                 />
-                <Button style={{ marginTop: 20 }} onClick={postUser}>
+                {/* <Button style={{ marginTop: 20 }} onClick={postUser}>
                     Изменить
-                </Button>
+                </Button> */}
             </Content>
         </Container>
     )

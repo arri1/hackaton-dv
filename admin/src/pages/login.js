@@ -12,9 +12,9 @@ const Login = () => {
     const history = useHistory()
 
     const [onAuth, { loading }] = useMutation(AUTH_BUSINESS, {
-        onCompleted: ({ authBusiness: { business, token } }) => {
+        onCompleted: ({ authBusiness: { Business, token } }) => {
             localStorage.setItem('token', token)
-            client.writeQuery({ query: BUSINESS, data: { business } })
+            client.writeQuery({ query: BUSINESS, data: { Business } })
             history.replace('/authorized/home')
         },
         onError: () => {}
