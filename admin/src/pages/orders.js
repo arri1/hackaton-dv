@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import React, {useCallback} from 'react'
 import styled from 'styled-components'
-import {useLazyQuery, useMutation} from '@apollo/react-hooks'
+import {useApolloClient, useMutation, useQuery} from '@apollo/react-hooks'
 import {FIND_MANY_ORDERS} from "../gql/order/query"
 import {Title} from "../components/textStyled"
 import {Button, Table, Tag} from "antd"
@@ -34,45 +34,29 @@ const statusMap = {
 }
 
 const Orders = () => {
-    const [businessId, setBusinessId] = useState([])
-
-    useEffect(() => {
-        getId()
+    const apollo = useApolloClient()
+    const businessId = useCallback(async () => {
+        const {data} = await apollo.query({query: BUSINESS, fetchPolicy: 'catch-first', errorPolicy: 'ignore'})
+        console.log(data)
+        return data.business.id
     }, [])
 
-    const [getId] = useLazyQuery(BUSINESS, {
+    const {refetch, data, loading} = useQuery(FIND_MANY_ORDERS, {
         onError: () => {
         },
-        onCompleted: ({business}) => {
-            getOrders({
-                variables: {
-                    where: {
-                        businessId: {
-                            equals: business.id
-                        }
-                    },
-                    orderBy: {
-                        status: 'asc'
-                    }
+        variables: {
+            where: {
+                businessId: {
+                    equals: businessId
                 }
-            })
-            setBusinessId(business.id)
-        },
-        fetchPolicy: 'cache-first'
+            },
+            orderBy: {
+                status: 'asc'
+            }
+        }
     })
-
-    const [getOrders, {refetch, data}] = useLazyQuery(FIND_MANY_ORDERS, {
-        onCompleted: ({findManyOrder}
-        ) => {
-            console.log('findManyOrder', findManyOrder)
-
-        },
-        onError: () => {
-        },
-    })
-    const [onAccept] = useMutation(UPDATE_ORDER, {
+    const [onAccept, {loading: postLoading}] = useMutation(UPDATE_ORDER, {
         onCompleted: () => {
-            console.log(businessId)
             if (businessId)
                 refetch({
                     variables: {
@@ -94,7 +78,8 @@ const Orders = () => {
         <Container>
             <Title>Заказы</Title>
             <Table
-                dataSource={data&&data.findManyOrder ? data.findManyOrder.map((item) => {
+                loading={loading || postLoading}
+                dataSource={data && data.findManyOrder ? data.findManyOrder.map((item) => {
                     return {
                         address: item.address,
                         comment: item.comment,
