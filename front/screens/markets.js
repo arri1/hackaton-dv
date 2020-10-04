@@ -1,7 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Text, TouchableOpacity, View, ScrollView } from 'react-native'
+import {useQuery} from '@apollo/react-hooks'
+import {ScrollView, TouchableOpacity, View} from 'react-native'
 import Card from './../components/card'
+import {GET_BUSINESS} from "../gqls/business/queries"
+import LoadingBar from "../components/loadingBar"
+
 const Container = styled(View)`
     align-items: center;
     flex-direction: row;
@@ -14,119 +18,16 @@ const MainCard = styled(View)`
     flex: 1;
 `
 
-const data = [
-    {
-        id: '3122',
-        login: 'gold9208',
-        name: 'Пятерочка',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
-        address: 'Lenina 1',
-        location: 'Vlad',
-        product: 'Apple',
-        orders: 'Meet'
-    },
-    {
-        id: '3122',
-        login: 'gold9208',
-        name: 'Ашан',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
-        address: 'Lenina 1',
-        location: 'Vlad',
-        product: 'Apple',
-        orders: 'Meet'
-    },
-    {
-        id: '3122',
-        login: 'gold9208',
-        name: 'Пятерочка',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
-        address: 'Lenina 1',
-        location: 'Vlad',
-        product: 'Apple',
-        orders: 'Meet'
-    },
-    {
-        id: '3122',
-        login: 'gold9208',
-        name: 'Пятерочка',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
-        address: 'Lenina 1',
-        location: 'Vlad',
-        product: 'Apple',
-        orders: 'Meet'
-    },
-    {
-        id: '3122',
-        login: 'gold9208',
-        name: 'Пятерочка',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
-        address: 'Lenina 1',
-        location: 'Vlad',
-        product: 'Apple',
-        orders: 'Meet'
-    },
-    {
-        id: '3122',
-        login: 'gold9208',
-        name: 'Пятерочка',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
-        address: 'Lenina 1',
-        location: 'Vlad',
-        product: 'Apple',
-        orders: 'Meet'
-    },
-    {
-        id: '3122',
-        login: 'gold9208',
-        name: 'Пятерочка',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
-        address: 'Lenina 1',
-        location: 'Vlad',
-        product: 'Apple',
-        orders: 'Meet'
-    },
-    {
-        id: '3122',
-        login: 'gold9208',
-        name: 'Пятерочка',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
-        address: 'Lenina 1',
-        location: 'Vlad',
-        product: 'Apple',
-        orders: 'Meet'
-    },
-    {
-        id: '3122',
-        login: 'gold9208',
-        name: 'Пятерочка',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
-        address: 'Lenina 1',
-        location: 'Vlad',
-        product: 'Apple',
-        orders: 'Meet'
-    },
-    {
-        id: '3122',
-        login: 'gold9208',
-        name: 'Пятерочка',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
-        address: 'Lenina 1',
-        location: 'Vlad',
-        product: 'Apple',
-        orders: 'Meet'
-    }
-]
-const Markets = ({ navigation }) => {
+const Markets = ({navigation}) => {
+    const [data, setData] = useState([])
+    const {loading} = useQuery(GET_BUSINESS, {
+        onCompleted: ({findManyBusiness}) => {
+            setData(findManyBusiness)
+        }
+    })
+    if (loading)
+        return <LoadingBar/>
+
     return (
         <Container>
             <ScrollView>
@@ -136,9 +37,9 @@ const Markets = ({ navigation }) => {
                             <TouchableOpacity
                                 onPress={() => {
                                     navigation.navigate('MarketDetail', {
-                                        name:item.name,
-                                        description:item.description,
-                                        type:item.type
+                                        name: item.name,
+                                        description: item.description,
+                                        type: item.type
                                     })
                                 }}
                             >
