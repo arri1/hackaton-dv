@@ -65,4 +65,5 @@ enum OrderStatus{
     AWAITED
     INPROGRESS
     DONE
+    CANCELED
 }
