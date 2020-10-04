@@ -5,6 +5,7 @@ import {ApolloLink} from 'apollo-link'
 import {setContext} from 'apollo-link-context'
 import {createUploadLink} from 'apollo-upload-client'
 import fetch from 'node-fetch'
+import {API_URL} from '@env'
 
 const authLink = setContext(async (_, {headers}) => {
     let token
@@ -30,7 +31,7 @@ const errorLink = onError(({graphQLErrors, networkError}) => {
 })
 
 const uploadLink = createUploadLink({
-    uri: `${process.env.REACT_APP_URL}`,
+    uri: `${API_URL}`,
     credentials: 'same-origin',
     fetch
 })

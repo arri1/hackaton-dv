@@ -22,6 +22,8 @@ const StyledTextInput = styled(TextInput)`
 const Login = ({navigation}) => {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
+
+
     return (
         <Contianer>
             <Title>Логин</Title>

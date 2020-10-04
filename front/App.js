@@ -8,7 +8,6 @@ import Login from "./screens/login"
 import {ApolloProvider} from '@apollo/react-hooks'
 import apollo from './utils/apollo'
 import Registration from "./screens/registration"
-
 const Stack = createStackNavigator()
 
 const {width, height} = Dimensions.get('screen')
@@ -19,6 +18,7 @@ const Container = styled(SafeAreaView)`
 `
 
 const App = () => {
+    console.log('qwe',API_TOKEN)
     return (
         <Container>
             <ApolloProvider client={apollo}>
