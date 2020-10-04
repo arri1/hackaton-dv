@@ -77,7 +77,9 @@ const Products = () => {
                 onRow={(record, rowIndex) => {
                     return {
                         onClick: (event) => {
-                            history.push('/authorized/productDetail')
+                            history.push('/authorized/productDetail', {
+                                state: { record: record }
+                            })
                         }
                     }
                 }}
