@@ -38,6 +38,7 @@ const Markets = ({navigation}) => {
                                 key={item.id}
                                 onPress={() => {
                                     navigation.navigate('MarketDetail', {
+                                        businessId:item.id,
                                         name: item.name,
                                         description: item.description,
                                         type: item.type,
