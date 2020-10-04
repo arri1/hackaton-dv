@@ -1,7 +1,15 @@
 import React, { useRef } from 'react'
 import { Layout, Menu, Popconfirm } from 'antd'
 import { useApolloClient } from '@apollo/react-hooks'
-import { UploadOutlined, UserOutlined } from '@ant-design/icons'
+import {
+    UploadOutlined,
+    UserOutlined,
+    ShopOutlined,
+    UserDeleteOutlined,
+    CreditCardOutlined,
+    BankOutlined,
+    HomeOutlined
+} from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
 import { BUSINESS } from '../gql/business/query'
 
@@ -22,8 +30,9 @@ const Sider = () => {
                     onClick={() => {
                         history.push('/authorized/home')
                     }}
-                    key='/authorized/home'
-                    icon={<UserOutlined />}>
+                    key="/authorized/home"
+                    icon={<HomeOutlined />}
+                >
                     Главная
                 </Menu.Item>
                 <Menu.Item
@@ -31,18 +40,27 @@ const Sider = () => {
                     onClick={() => {
                         history.push('/authorized/products')
                     }}
-                    icon={<UploadOutlined />}>
+                    icon={<ShopOutlined />}
+                >
                     Мои товары
                 </Menu.Item>
                 <Menu.Item
-                    key='/authorized/addProducts'
-                    icon={<UploadOutlined />}
+                    key="/authorized/addProducts"
+                    icon={<BankOutlined />}
                     onClick={() => {
                         history.push('/authorized/addProducts')
                     }}
                 >
-
                     Добавить товары
+                </Menu.Item>
+                <Menu.Item
+                    key="/authorized/orders"
+                    icon={<CreditCardOutlined />}
+                    onClick={() => {
+                        history.push('/authorized/orders')
+                    }}
+                >
+                    Заказы
                 </Menu.Item>
 
                 <Menu.Item
@@ -50,18 +68,18 @@ const Sider = () => {
                     onClick={() => {
                         exitEl.current.onClick()
                     }}
-                    icon={<UserOutlined />}>
-
+                    icon={<UserDeleteOutlined />}
+                >
                     <Popconfirm
                         ref={exitEl}
                         onConfirm={logOut}
                         title="Вы уверены"
                         okText="Да"
-                        cancelText="Нет">
+                        cancelText="Нет"
+                    >
                         Выйти
                     </Popconfirm>
                 </Menu.Item>
-
             </Menu>
         </AntSider>
     )

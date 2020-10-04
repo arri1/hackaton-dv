@@ -5,6 +5,9 @@ import {createStackNavigator} from '@react-navigation/stack'
 import styled from 'styled-components'
 import MainNavigator from "./navigators/mainNavigator"
 import Login from "./screens/login"
+import {ApolloProvider} from '@apollo/react-hooks'
+import apollo from './utils/apollo'
+import Registration from "./screens/registration"
 
 const Stack = createStackNavigator()
 
@@ -14,15 +17,19 @@ const Container = styled(SafeAreaView)`
     width: ${width};
     height: ${height};
 `
+
 const App = () => {
     return (
         <Container>
-            <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen name={'Login'} component={Login}/>
-                    <Stack.Screen name={'Main'} component={MainNavigator} options={{title: ""}}/>
-                </Stack.Navigator>
-            </NavigationContainer>
+            <ApolloProvider client={apollo}>
+                <NavigationContainer>
+                    <Stack.Navigator>
+                        <Stack.Screen name={'Login'} component={Login}/>
+                        <Stack.Screen name={'Registration'} component={Registration}/>
+                        <Stack.Screen name={'Main'} component={MainNavigator}/>
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </ApolloProvider>
         </Container>
     )
 }

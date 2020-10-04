@@ -9,10 +9,10 @@ const Business = gql`
         login: String!
         password: String!
         name: String!
-        description: String!
-        type: String!
+        description: String
+        type: String
         location: String
-        address: String!
+        address: String
     }
     type RegistrationBusinessOutput{
         token:String!
@@ -23,11 +23,11 @@ const Business = gql`
         createdAt: DateTime!
         updatedAt: DateTime!
         login: String!
-        name: String!
+        name: String
         location: String
-        description: String!
-        type: String!
-        address: String!
+        description: String
+        type: String
+        address: String
         products(
             where: ProductWhereInput
             orderBy: ProductOrderByInput

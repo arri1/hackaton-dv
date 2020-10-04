@@ -1,7 +1,11 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
-import {TextInput, View,Button} from "react-native"
+import {AsyncStorage, Button, TextInput, View} from "react-native"
 import {Title} from "../components/textStyle"
+import {useApolloClient, useMutation} from '@apollo/react-hooks'
+import {AUTH} from "../gqls/user/mutations"
+import {USER} from "../gqls/user/queries"
+import LoadingBar from "../components/loadingBar"
 
 const Contianer = styled(View)`
     flex: 1;
@@ -20,8 +24,31 @@ const StyledTextInput = styled(TextInput)`
   margin-top: 24px;
 `
 const Login = ({navigation}) => {
+    const apollo = useApolloClient()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
+
+    const {loading} = useQuery(USER, {
+        onCompleted: () => {
+            navigation.replace('Main')
+        },
+        onError: () => {
+
+        }
+    })
+
+    const [onAuth, {loading: authLoading}] = useMutation(AUTH, {
+        onCompleted: async ({authUser}) => {
+            await AsyncStorage.setItem('token', authUser.token)
+            apollo.writeQuery({query: USER, data: {user: authUser.user}})
+            navigation.replace('Main')
+        },
+        onError: (error) => {
+        }
+    })
+    if (loading || authLoading)
+        return <LoadingBar/>
+
     return (
         <Contianer>
             <Title>Логин</Title>
@@ -34,10 +61,17 @@ const Login = ({navigation}) => {
                 value={password}
             />
             <Button
+                style={{marginTop: 60}}
                 title={'Войти'}
-                onPress={()=>{
-                navigation.replace('Main')
-            }} />
+                onPress={() => {
+                    onAuth({variables: {data: {email, password}}})
+                }}/>
+            <Button
+                style={{marginTop: 24}}
+                title={'Регистрация'}
+                onPress={() => {
+                    navigation.push('Registration')
+                }}/>
         </Contianer>
     )
 }
