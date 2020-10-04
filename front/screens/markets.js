@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import styled from 'styled-components'
 import {useQuery} from '@apollo/react-hooks'
 import {ScrollView, TouchableOpacity, View} from 'react-native'
