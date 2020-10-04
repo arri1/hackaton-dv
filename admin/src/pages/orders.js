@@ -1,10 +1,11 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
-import {useLazyQuery, useQuery} from '@apollo/react-hooks'
+import {useLazyQuery, useMutation} from '@apollo/react-hooks'
 import {FIND_MANY_ORDERS} from "../gql/order/query"
 import {Title} from "../components/textStyled"
 import {Button, Table, Tag} from "antd"
 import {BUSINESS} from "../gql/business/query"
+import {UPDATE_ORDER} from "../gql/order/mutations"
 
 const {Column} = Table
 
@@ -26,40 +27,81 @@ const statusMap = {
         value: 'В действии',
         color: 'green'
     },
+    CANCELED: {
+        value: 'Отменен',
+        color: 'red'
+    },
 }
 
 const Orders = () => {
-    const [data, setData] = useState([])
     const [businessId, setBusinessId] = useState([])
-    useQuery(BUSINESS, {
+
+    useEffect(() => {
+        getId()
+    }, [])
+
+    const [getId] = useLazyQuery(BUSINESS, {
         onError: () => {
         },
         onCompleted: ({business}) => {
-            getOrders({variables: {where: {businessId: {equals: business.id}}}})
+            getOrders({
+                variables: {
+                    where: {
+                        businessId: {
+                            equals: business.id
+                        }
+                    },
+                    orderBy: {
+                        status: 'asc'
+                    }
+                }
+            })
+            setBusinessId(business.id)
         },
         fetchPolicy: 'cache-first'
     })
 
-    const [getOrders] = useLazyQuery(FIND_MANY_ORDERS, {
+    const [getOrders, {refetch, data}] = useLazyQuery(FIND_MANY_ORDERS, {
         onCompleted: ({findManyOrder}
         ) => {
-            setData(findManyOrder.map((item) => {
-                return {
-                    address: item.address,
-                    comment: item.comment,
-                    status: item.status,
-                    id: item.id
-                }
-            }))
+            console.log('findManyOrder', findManyOrder)
+
         },
         onError: () => {
         },
     })
+    const [onAccept] = useMutation(UPDATE_ORDER, {
+        onCompleted: () => {
+            console.log(businessId)
+            if (businessId)
+                refetch({
+                    variables: {
+                        where: {
+                            businessId:
+                                {equals: businessId}
+                        },
+                        orderBy: {
+                            status: 'asc'
+                        }
+                    }
+                })
+        },
+        onError: () => {
+        }
+    })
+
     return (
         <Container>
             <Title>Заказы</Title>
             <Table
-                dataSource={data}
+                dataSource={data&&data.findManyOrder ? data.findManyOrder.map((item) => {
+                    return {
+                        address: item.address,
+                        comment: item.comment,
+                        status: item.status,
+                        id: item.id
+                    }
+                }) : []}
                 style={{marginTop: 30}}
             >
 
@@ -92,17 +134,50 @@ const Orders = () => {
                     dataIndex={'id'}
                     key={'id'}
                     render={
-                        (item) => {
+                        (id) => {
                             return (
                                 <div>
                                     <Button
-                                        type='primary'>Принять</Button>
+                                        type='primary'
+                                        onClick={
+                                            () => {
+                                                onAccept({
+                                                    variables: {
+                                                        data: {
+                                                            status: {
+                                                                set: 'INPROGRESS'
+                                                            }
+                                                        },
+                                                        where: {id}
+                                                    }
+                                                })
+                                            }
+                                        }
+                                    >
+                                        Принять
+                                    </Button>
                                     <Button
                                         type='primary'
-                                        style={{marginLeft:8}}
-                                        danger>Отклонить</Button>
+                                        style={{marginLeft: 8}}
+                                        danger
+                                        onClick={
+                                            () => {
+                                                onAccept({
+                                                    variables: {
+                                                        data: {
+                                                            status: {
+                                                                set: 'CANCELED'
+                                                            }
+                                                        },
+                                                        where: {id}
+                                                    }
+                                                })
+                                            }
+                                        }
+                                    >
+                                        Отклонить
+                                    </Button>
                                 </div>)
-
                         }
                     }
                 />

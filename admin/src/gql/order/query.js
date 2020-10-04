@@ -1,8 +1,8 @@
 import gql from "graphql-tag"
 
 export const FIND_MANY_ORDERS = gql`
-    query ($where:OrderWhereInput!){
-        findManyOrder(where: $where){
+    query ($where:OrderWhereInput!,$orderBy:OrderOrderByInput!){
+        findManyOrder(where: $where orderBy: [$orderBy]){
             address
             status
             id
