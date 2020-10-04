@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
-import {Button, TextInput, View,AsyncStorage} from "react-native"
+import {AsyncStorage, Button, TextInput, View} from "react-native"
 import {Title} from "../components/textStyle"
 import {useApolloClient, useMutation} from '@apollo/react-hooks'
 import {AUTH} from "../gqls/user/mutations"
 import {USER} from "../gqls/user/queries"
+import LoadingBar from "../components/loadingBar"
 
 const Contianer = styled(View)`
     flex: 1;
@@ -27,17 +28,26 @@ const Login = ({navigation}) => {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
 
-    const [onAuth] = useMutation(AUTH, {
-        onCompleted:async ({authUser}) => {
-            console.log(authUser)
+    const {loading} = useQuery(USER, {
+        onCompleted: () => {
+            navigation.replace('Main')
+        },
+        onError: () => {
+
+        }
+    })
+
+    const [onAuth, {loading: authLoading}] = useMutation(AUTH, {
+        onCompleted: async ({authUser}) => {
             await AsyncStorage.setItem('token', authUser.token)
             apollo.writeQuery({query: USER, data: {user: authUser.user}})
             navigation.replace('Main')
         },
         onError: (error) => {
-            console.log(error.message)
         }
     })
+    if (loading || authLoading)
+        return <LoadingBar/>
 
     return (
         <Contianer>
@@ -54,7 +64,6 @@ const Login = ({navigation}) => {
                 style={{marginTop: 60}}
                 title={'Войти'}
                 onPress={() => {
-                    console.log('test')
                     onAuth({variables: {data: {email, password}}})
                 }}/>
             <Button
