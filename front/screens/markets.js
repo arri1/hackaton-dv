@@ -11,10 +11,10 @@ const Container = styled(View)`
     flex-direction: row;
     flex: 1;
     justify-content: center;
-    margin-top: 14px;
 `
 
 const MainCard = styled(View)`
+    padding-top: 14px;
     flex: 1;
 `
 
