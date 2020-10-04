@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import {useLazyQuery, useMutation} from '@apollo/react-hooks'
-import {FIND_MANY_ORDERS} from "../gql/order/query"
-import {Title} from "../components/textStyled"
-import {Button, Table, Tag} from "antd"
-import {BUSINESS} from "../gql/business/query"
-import {UPDATE_ORDER} from "../gql/order/mutations"
+import { useLazyQuery, useMutation } from '@apollo/react-hooks'
+import { FIND_MANY_ORDERS } from '../gql/order/query'
+import { Title } from '../components/textStyled'
+import { Button, Table, Tag } from 'antd'
+import { BUSINESS } from '../gql/business/query'
+import { UPDATE_ORDER } from '../gql/order/mutations'
 
-const {Column} = Table
+const { Column } = Table
 
 const Container = styled.div`
-  display: flex;
-  flex: 1;  
-  flex-direction: column;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
 `
 const statusMap = {
     AWAITED: {
@@ -30,7 +30,7 @@ const statusMap = {
     CANCELED: {
         value: 'Отменен',
         color: 'red'
-    },
+    }
 }
 
 const Orders = () => {
@@ -39,9 +39,8 @@ const Orders = () => {
         getId()
     }, [])
     const [getId] = useLazyQuery(BUSINESS, {
-        onError: () => {
-        },
-        onCompleted: ({business}) => {
+        onError: () => {},
+        onCompleted: ({ business }) => {
             getOrders({
                 variables: {
                     where: {
@@ -58,13 +57,11 @@ const Orders = () => {
         },
         fetchPolicy: 'cache-first'
     })
-    const [getOrders, {refetch, data}] = useLazyQuery(FIND_MANY_ORDERS, {
-        onCompleted: ({findManyOrder}
-        ) => {
+    const [getOrders, { refetch, data }] = useLazyQuery(FIND_MANY_ORDERS, {
+        onCompleted: ({ findManyOrder }) => {
             console.log('findManyOrder', findManyOrder)
         },
-        onError: () => {
-        },
+        onError: () => {}
     })
     const [onAccept] = useMutation(UPDATE_ORDER, {
         onCompleted: () => {
@@ -73,8 +70,7 @@ const Orders = () => {
                 refetch({
                     variables: {
                         where: {
-                            businessId:
-                                {equals: businessId}
+                            businessId: { equals: businessId }
                         },
                         orderBy: {
                             status: 'asc'
@@ -82,98 +78,82 @@ const Orders = () => {
                     }
                 })
         },
-        onError: () => {
-        }
+        onError: () => {}
     })
     return (
         <Container>
             <Title>Заказы</Title>
             <Table
-                dataSource={data&&data.findManyOrder ? data.findManyOrder.map((item) => {
-                    return {
-                        address: item.address,
-                        comment: item.comment,
-                        status: item.status,
-                        id: item.id
-                    }
-                }) : []}
-                style={{marginTop: 30}}
+                dataSource={
+                    data && data.findManyOrder
+                        ? data.findManyOrder.map((item) => {
+                              return {
+                                  address: item.address,
+                                  comment: item.comment,
+                                  status: item.status,
+                                  id: item.id
+                              }
+                          })
+                        : []
+                }
+                style={{ marginTop: 30 }}
             >
-                <Column
-                    title={'Адрес'}
-                    dataIndex={'address'}
-                    key={'address'}
-                />
-                <Column
-                    title={'Коммент'}
-                    dataIndex={'comment'}
-                    key={'comment'}
-                />
+                <Column title={'Адрес'} dataIndex={'address'} key={'address'} />
+                <Column title={'Коммент'} dataIndex={'comment'} key={'comment'} />
                 <Column
                     title={'Статус'}
                     dataIndex={'status'}
                     key={'status'}
-                    render={
-                        (item) => {
-                            return (
-                                <Tag color={statusMap[item].color}>
-                                    {statusMap[item].value}
-                                </Tag>
-                            )
-                        }
-                    }
+                    render={(item) => {
+                        return <Tag color={statusMap[item].color}>{statusMap[item].value}</Tag>
+                    }}
                 />
                 <Column
                     title={'Действия'}
                     dataIndex={'id'}
                     key={'id'}
-                    render={
-                        (id) => {
-                            return (
-                                <div>
-                                    <Button
-                                        type='primary'
-                                        onClick={
-                                            () => {
-                                                onAccept({
-                                                    variables: {
-                                                        data: {
-                                                            status: {
-                                                                set: 'INPROGRESS'
-                                                            }
-                                                        },
-                                                        where: {id}
+                    render={(id) => {
+                        return (
+                            <div>
+                                <Button
+                                    type="primary"
+                                    onClick={() => {
+                                        onAccept({
+                                            variables: {
+                                                data: {
+                                                    status: {
+                                                        set: 'INPROGRESS'
                                                     }
-                                                })
+                                                },
+                                                where: { id }
                                             }
-                                        }
-                                    >
-                                        Принять
-                                    </Button>
-                                    <Button
-                                        type='primary'
-                                        style={{marginLeft: 8}}
-                                        danger
-                                        onClick={
-                                            () => {
-                                                onAccept({
-                                                    variables: {
-                                                        data: {
-                                                            status: {
-                                                                set: 'CANCELED'
-                                                            }
-                                                        },
-                                                        where: {id}
+                                        })
+                                    }}
+                                >
+                                    Принять
+                                </Button>
+                                <Button
+                                    type="primary"
+                                    style={{ marginLeft: 8 }}
+                                    danger
+                                    onClick={() => {
+                                        onAccept({
+                                            variables: {
+                                                data: {
+                                                    status: {
+                                                        set: 'CANCELED'
                                                     }
-                                                })
+                                                },
+                                                where: { id }
                                             }
-                                        }
-                                    >
-                                        Отклонить
-                                    </Button>
-                                </div>)
-                        }
-                    }
+                                        })
+                                    }}
+                                >
+                                    Отклонить
+                                </Button>
+                            </div>
+                        )
+                    }}
                 />
             </Table>
         </Container>

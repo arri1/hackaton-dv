@@ -16,8 +16,8 @@ export const BUSINESS = gql`
 `
 
 export const BUSSIN = gql`
-    query($where: BusinessWhereUniqueInput!, $data: BusinessUpdateInput!) {
-        businessWhereUniqueInput(where: $where, data: $data) {
+    query {
+        business {
             id
             createdAt
             updatedAt

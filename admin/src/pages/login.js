@@ -50,7 +50,7 @@ const Login = () => {
     }
     return (
         <Container>
-            <Content>
+            <Content style={{ marginBottom: 100 }}>
                 <Title>Заход в систему</Title>
                 <Input
                     style={{ marginTop: 25 }}
@@ -62,7 +62,7 @@ const Login = () => {
                 />
                 <Input
                     placeholder={'Введите пароль'}
-                    type={'password'}
+                    type="password"
                     value={password}
                     onChange={(e) => {
                         setPassword(e.target.value)

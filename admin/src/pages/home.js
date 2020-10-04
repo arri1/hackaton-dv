@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Title } from '../components/textStyled'
 import { message, Spin, Input, Button } from 'antd'
 import { Content } from '../components/loginStyle'
-import { BUSSIN, BUSINESS } from '../gql/business/query'
+import { BUSINESS, BUSSIN } from '../gql/business/query'
 import { useLazyQuery, useMutation, useQuery, useApolloClient } from '@apollo/react-hooks'
 import { UPDATE_BUSSINESS } from '../gql/business/mutation'
 
@@ -17,13 +17,13 @@ const Home = () => {
     const client = useApolloClient()
 
     const [onRegister, { loading }] = useMutation(UPDATE_BUSSINESS, {
-        onCompleted: ({ businessWhereUniqueInput: { business, token } }) => {
+        onCompleted: ({ businessWhereUniqueInput: { Business, token } }) => {
             localStorage.setItem('token', token)
-            client.writeQuery({ query: BUSSIN, data: { business } })
+            client.writeQuery({ query: BUSSIN, data: { Business } })
             message.success('все хорошо')
         },
         onError: (err) => {
-            console.log('err', err)
+            message.error('что-то пошло не так')
         }
     })
     const [userData, setUserData] = useState()
@@ -33,8 +33,11 @@ const Home = () => {
     const [address, setAdress] = useState()
     const [type, setType] = useState()
     const [password, setPassword] = useState()
-
-    useQuery(BUSINESS, {
+    const [createdAt, setCreatedAt] = useState()
+    const [updatedAt, setUpdatedAt] = useState()
+    const [orders, setOrders] = useState()
+    const [products, setProducts] = useState()
+    useQuery(BUSSIN, {
         onCompleted: ({ business }) => {
             setUserData(business)
             setName(business.name)
@@ -42,9 +45,12 @@ const Home = () => {
             setDescription(business.description)
             setAdress(business.address)
             setType(business.type)
-        },
-        onError: (err) => {
-            console.log(err)
+            setPassword(business.password)
+            setUpdatedAt(business.updatedAt)
+            setCreatedAt(business.createdAt)
+            setOrders(business.orders)
+            setProducts(business.products)
+            console.log('efe', business)
         }
     })
     if (loading)
@@ -83,7 +89,10 @@ const Home = () => {
                     address,
                     description,
                     login,
-                    password
+                    createdAt,
+                    orders,
+                    updatedAt,
+                    products
                 }
             }
         })
@@ -140,6 +149,38 @@ const Home = () => {
                     value={type}
                     onChange={(event) => {
                         setType(event.target.value)
+                    }}
+                />
+                <Input
+                    style={{ marginTop: 15 }}
+                    placeholder={'createdAt'}
+                    value={createdAt}
+                    onChange={(event) => {
+                        setCreatedAt(event.target.value)
+                    }}
+                />
+                <Input
+                    style={{ marginTop: 15 }}
+                    placeholder={'updatedAt'}
+                    value={updatedAt}
+                    onChange={(event) => {
+                        setUpdatedAt(event.target.value)
+                    }}
+                />
+                <Input
+                    style={{ marginTop: 15 }}
+                    placeholder={'orders'}
+                    value={orders}
+                    onChange={(event) => {
+                        setOrders(event.target.value)
+                    }}
+                />
+                <Input
+                    style={{ marginTop: 15 }}
+                    placeholder={'product'}
+                    value={products}
+                    onChange={(event) => {
+                        setProducts(event.target.value)
                     }}
                 />
                 <Button style={{ marginTop: 20 }} onClick={postUser}>

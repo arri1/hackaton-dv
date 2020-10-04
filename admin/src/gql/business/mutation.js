@@ -20,20 +20,20 @@ export const REGISTRATION_BUSINESS = gql`
 `
 
 export const UPDATE_BUSSINESS = gql`
-    mutation ($where:BusinessWhereUniqueInput! $data:BusinessUpdateInput!){
-        businessWhereUniqueInput(where: $where data:$data) {
-            business{
-                id
-                createdAt
-                updatedAt
-                login
-                name
-                location
-                description
-                type
-                address
-                products
-                orders
+    mutation($where: BusinessWhereUniqueInput!, $data: BusinessUpdateInput!) {
+        updateOneBusiness(where: $where, data: $data) {
+            id
+            createdAt
+            updatedAt
+            login
+            name
+            location
+            description
+            type
+            address
+            products
+            orders
+        }
     }
 `
 
