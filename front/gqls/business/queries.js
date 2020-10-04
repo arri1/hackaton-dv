@@ -12,6 +12,7 @@ export const GET_BUSINESS=gql`
                 name
                 cost
                 description
+                id
             }
         }
     }
