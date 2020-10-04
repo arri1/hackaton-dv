@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import {useApolloClient, useMutation, useQuery} from '@apollo/react-hooks'
 import {FIND_MANY_ORDERS} from "../gql/order/query"
@@ -35,11 +35,15 @@ const statusMap = {
 
 const Orders = () => {
     const apollo = useApolloClient()
-    const businessId = useCallback(async () => {
-        const {data} = await apollo.query({query: BUSINESS, fetchPolicy: 'catch-first', errorPolicy: 'ignore'})
-        console.log(data)
-        return data.business.id
-    }, [])
+    const [businessId, setBusinessId] = useState()
+
+    useQuery(BUSINESS, {
+        onCompleted: ({business}) => {
+            setBusinessId(business.id)
+        },
+        fetchPolicy: 'catch-first',
+        errorPolicy: 'ignore'
+    })
 
     const {refetch, data, loading} = useQuery(FIND_MANY_ORDERS, {
         onError: () => {
@@ -53,7 +57,9 @@ const Orders = () => {
             orderBy: {
                 status: 'asc'
             }
-        }
+        },
+        errorPolicy: 'ignore'
+
     })
     const [onAccept, {loading: postLoading}] = useMutation(UPDATE_ORDER, {
         onCompleted: () => {
