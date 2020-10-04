@@ -6,8 +6,8 @@ const User = gql`
         createdAt: DateTime!
         updatedAt: DateTime!
         email: String!
-        name: String!
-        phone: String!
+        name: String
+        phone: String
         orders(
             where: OrderWhereInput
             orderBy: OrderOrderByInput
