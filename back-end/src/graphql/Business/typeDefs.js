@@ -9,10 +9,10 @@ const Business = gql`
         login: String!
         password: String!
         name: String!
-        description: String!
-        type: String!
+        description: String
+        type: String
         location: String
-        address: String!
+        address: String
     }
     type RegistrationBusinessOutput{
         token:String!
