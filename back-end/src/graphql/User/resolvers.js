@@ -5,6 +5,10 @@ const {Business} = require('../Business/resolvers')
 
 const User = {
     Query: {
+        user: async (_parent, args, {prisma, access}) => {
+            const {id} = await access.user()
+            return prisma.user.findOne({where: {id}})
+        },
         findOneUser: (_parent, args, {prisma}) => {
             return prisma.user.findOne(args)
         },
