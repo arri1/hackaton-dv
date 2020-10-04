@@ -35,11 +35,9 @@ const statusMap = {
 
 const Orders = () => {
     const [businessId, setBusinessId] = useState([])
-
     useEffect(() => {
         getId()
     }, [])
-
     const [getId] = useLazyQuery(BUSINESS, {
         onError: () => {
         },
@@ -60,12 +58,10 @@ const Orders = () => {
         },
         fetchPolicy: 'cache-first'
     })
-
     const [getOrders, {refetch, data}] = useLazyQuery(FIND_MANY_ORDERS, {
         onCompleted: ({findManyOrder}
         ) => {
             console.log('findManyOrder', findManyOrder)
-
         },
         onError: () => {
         },
@@ -89,7 +85,6 @@ const Orders = () => {
         onError: () => {
         }
     })
-
     return (
         <Container>
             <Title>Заказы</Title>
@@ -104,7 +99,6 @@ const Orders = () => {
                 }) : []}
                 style={{marginTop: 30}}
             >
-
                 <Column
                     title={'Адрес'}
                     dataIndex={'address'}

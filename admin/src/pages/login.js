@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Lable, Title } from '../components/textStyled'
-import { message, Spin } from 'antd'
+import { message, Spin, Input } from 'antd'
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
 import { AUTH_BUSINESS } from '../gql/business/mutation'
 import { BUSINESS } from '../gql/business/query'
 import { useHistory } from 'react-router-dom'
-import { Input, Container, Content, Button } from '../components/loginStyle'
+import { Container, Content, Button, ButtonDiv } from '../components/loginStyle'
 const Login = () => {
     const client = useApolloClient()
     const history = useHistory()
@@ -68,9 +68,17 @@ const Login = () => {
                         setPassword(e.target.value)
                     }}
                 />
-                <Button style={{ marginTop: 24 }} onClick={onClick}>
-                    Войти
-                </Button>
+                <ButtonDiv>
+                    <Button onClick={onClick}>Войти</Button>
+
+                    <Button
+                        onClick={() => {
+                            history.push('/register')
+                        }}
+                    >
+                        Регистрация
+                    </Button>
+                </ButtonDiv>
             </Content>
         </Container>
     )

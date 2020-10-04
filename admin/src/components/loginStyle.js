@@ -12,7 +12,7 @@ export const Content = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 200px;
+    margin-bottom: 100px;
 `
 export const Input = styled.input`
     width: 500px;
@@ -38,4 +38,12 @@ export const Button = styled.button`
     font-family: sans-serif;
     cursor: pointer;
     border-radius: 10px;
+    margin-top: 24px;
+    margin-left: 15px;
+`
+
+export const ButtonDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 `

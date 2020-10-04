@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Input, Content, Container, Button } from '../components/loginStyle'
+import { Content, Container, Button } from '../components/loginStyle'
 import { Title } from '../components/textStyled'
-import { message, Spin } from 'antd'
+import { message, Spin, Input } from 'antd'
 import { REGISTRATION_BUSINESS } from '../gql/business/mutation'
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
 import { BUSINESS } from '../gql/business/query'
@@ -9,7 +9,6 @@ import { useHistory } from 'react-router-dom'
 const Register = () => {
     const history = useHistory()
     const client = useApolloClient()
-
     const [onRegister, { loading }] = useMutation(REGISTRATION_BUSINESS, {
         onCompleted: ({ registrationOneBusiness: { business, token } }) => {
             localStorage.setItem('token', token)
@@ -17,7 +16,7 @@ const Register = () => {
             history.replace('/authorized/home')
         },
         onError: (err) => {
-            console.log(err)
+            message.error('что-то пошло не так')
         }
     })
     const [name, setName] = useState()
@@ -34,7 +33,6 @@ const Register = () => {
                 </Content>
             </Container>
         )
-
     const postUser = () => {
         if (name === '') {
             message.error('name err')
@@ -67,7 +65,7 @@ const Register = () => {
     }
     return (
         <Container>
-            <Content>
+            <Content style={{ marginTop: 200 }}>
                 <Title>Регистрация</Title>
                 <Input
                     placeholder={'name'}
@@ -79,7 +77,6 @@ const Register = () => {
                 />
                 <Input
                     placeholder={'login'}
-                    style={{ marginTop: 25 }}
                     value={login}
                     onChange={(event) => {
                         setLogin(event.target.value)
