@@ -6,7 +6,9 @@
   "scripts": {
     "start": "nodemon src/app.js",
     "generate": "node src/generate.js",
-    "build": "node src/migrate.js && npx prisma migrate save --experimental -n '' && npx prisma migrate up --experimental && npx prisma generate"
+    "build": "node src/migrate.js && npx prisma migrate save --experimental -n '' && npx prisma migrate up --experimental && npx prisma generate",
+    "migrate": "npx prisma migrate save --experimental -n '' && npx prisma migrate up --experimental && npx prisma generate"
+
   },
   "author": "",
   "license": "ISC",

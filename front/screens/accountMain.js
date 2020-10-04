@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Text, TouchableOpacity, View, ScrollView } from 'react-native'
+import { Text, TouchableOpacity, View, ScrollView, ButtonView } from 'react-native'
+import { useApolloClient } from '@apollo/react-hooks'
+import {AsyncStorage} from 'react-native'
+import { USER } from '../gqls/user/queries'
 
 const Container = styled(View)`
     display: flex;
@@ -34,7 +37,14 @@ const AvatarText = styled(Text)`
     padding-left: 15px;
 `
 
-const AccountMain = () => {
+const AccountMain = ({navigation}) => {
+    const apollo = useApolloClient()
+    let deleteToken = async () => { 
+        await AsyncStorage.setItem('token', null)
+        await apollo.writeQuery({ query: USER, data: { user: null } })
+        navigation.navigate({routeName: 'Login'})
+    }
+
     return (
         <Container>
             <ScrollView>
@@ -42,6 +52,9 @@ const AccountMain = () => {
                     <Up>
                         <Avatar></Avatar>
                         <AvatarText>MyName</AvatarText>
+                        <TouchableOpacity onPress={deleteToken}>
+                            <Text>Go Something</Text>
+                        </TouchableOpacity>
                     </Up>
                 </Container>
             </ScrollView>

@@ -34,6 +34,11 @@ const errorLink = onError(({graphQLErrors, networkError}) => {
 const uploadLink = createUploadLink({
     uri: `${API_URL}`,
     credentials: 'same-origin',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-Custom-Header': true
+        },
     fetch
 })
 
