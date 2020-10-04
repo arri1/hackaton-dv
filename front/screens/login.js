@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
-import {Button, TextInput, View} from "react-native"
+import {Button, TextInput, View,AsyncStorage} from "react-native"
 import {Title} from "../components/textStyle"
-import  {useMutation} from '@apollo/react-hooks'
+import {useApolloClient, useMutation} from '@apollo/react-hooks'
+import {AUTH} from "../gqls/user/mutations"
+import {USER} from "../gqls/user/queries"
 
 const Contianer = styled(View)`
     flex: 1;
@@ -21,10 +23,21 @@ const StyledTextInput = styled(TextInput)`
   margin-top: 24px;
 `
 const Login = ({navigation}) => {
+    const apollo = useApolloClient()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
 
-    [onAuth]= useMutation()
+    const [onAuth] = useMutation(AUTH, {
+        onCompleted:async ({authUser}) => {
+            console.log(authUser)
+            await AsyncStorage.setItem('token', authUser.token)
+            apollo.writeQuery({query: USER, data: {user: authUser.user}})
+            navigation.replace('Main')
+        },
+        onError: (error) => {
+            console.log(error.message)
+        }
+    })
 
     return (
         <Contianer>
@@ -38,10 +51,11 @@ const Login = ({navigation}) => {
                 value={password}
             />
             <Button
-                style={{marginTop: 40}}
+                style={{marginTop: 60}}
                 title={'Войти'}
                 onPress={() => {
-                    navigation.replace('Main')
+                    console.log('test')
+                    onAuth({variables: {data: {email, password}}})
                 }}/>
             <Button
                 style={{marginTop: 24}}

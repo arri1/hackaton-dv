@@ -5,12 +5,13 @@ import {ApolloLink} from 'apollo-link'
 import {setContext} from 'apollo-link-context'
 import {createUploadLink} from 'apollo-upload-client'
 import fetch from 'node-fetch'
+import {AsyncStorage} from 'react-native'
 import {API_URL} from '@env'
 
 const authLink = setContext(async (_, {headers}) => {
     let token
     if (typeof window !== 'undefined') {
-        token = await localStorage.getItem('token')
+        token = await AsyncStorage.getItem('token')
     }
     return {
         headers: {

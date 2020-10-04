@@ -19,7 +19,6 @@ const Container = styled(SafeAreaView)`
 `
 
 const App = () => {
-    console.log('qwe',API_TOKEN)
     return (
         <Container>
             <ApolloProvider client={apollo}>
