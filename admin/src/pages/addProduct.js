@@ -1,34 +1,33 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import {FieldTitle, Title} from '../components/textStyled'
-import {Button, Input, message} from 'antd'
-import {useMutation} from '@apollo/react-hooks'
-import {CREATE_ONE_PRIVATE_PRODUCT} from '../gql/product/mutation'
+import { FieldTitle, Title } from '../components/textStyled'
+import { Button, Input, message } from 'antd'
+import { useMutation } from '@apollo/react-hooks'
+import { CREATE_ONE_PRIVATE_PRODUCT } from '../gql/product/mutation'
 import LoadingBar from '../components/loadingBar'
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 `
 const Content = styled.div`
-  margin-top: 30px;
-  display: flex;
-  flex-wrap: wrap;
-
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
 `
 const Item = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 16px;
-  margin-right: 16px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    margin-right: 16px;
 `
 const AddProudct = () => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [cost, setCost] = useState(0)
 
-    const [createOneProduct, {loading}] = useMutation(CREATE_ONE_PRIVATE_PRODUCT, {
+    const [createOneProduct, { loading }] = useMutation(CREATE_ONE_PRIVATE_PRODUCT, {
         onCompleted: () => {
             message.success('Добавлено')
         },
@@ -39,7 +38,7 @@ const AddProudct = () => {
 
     const onAdd = () => {
         if (name === '') {
-            message.error('Введите имя')
+            message.error('Введите название')
             return null
         }
 
@@ -58,8 +57,7 @@ const AddProudct = () => {
         })
     }
 
-    if (loading)
-        return <LoadingBar/>
+    if (loading) return <LoadingBar />
 
     return (
         <Container>
@@ -72,8 +70,10 @@ const AddProudct = () => {
                         onChange={(e) => {
                             setName(e.target.value)
                         }}
-                        style={{marginTop: 16}}
-                        placeholder={'Введите название'}/>
+                        type={"string"}
+                        style={{ marginTop: 16 }}
+                        placeholder={'Введите название'}
+                    />
                 </Item>
                 <Item>
                     <FieldTitle>Описание</FieldTitle>
@@ -82,8 +82,9 @@ const AddProudct = () => {
                         onChange={(e) => {
                             setDescription(e.target.value)
                         }}
-                        style={{marginTop: 16}}
-                        placeholder={'Введите описание'}/>
+                        style={{ marginTop: 16 }}
+                        placeholder={'Введите описание'}
+                    />
                 </Item>
                 <Item>
                     <FieldTitle>Стоимость</FieldTitle>
@@ -92,9 +93,10 @@ const AddProudct = () => {
                         onChange={(e) => {
                             setCost(e.target.value)
                         }}
-                        style={{marginTop: 16}}
+                        style={{ marginTop: 16 }}
                         type={'number'}
-                        placeholder={'Введите стоимость'}/>
+                        placeholder={'Введите стоимость'}
+                    />
                 </Item>
             </Content>
             <Button onClick={onAdd}>Добавить</Button>

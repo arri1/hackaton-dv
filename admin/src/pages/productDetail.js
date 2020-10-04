@@ -5,7 +5,8 @@ const Container = styled.div`
     display: flex;
 `
 
-const ProductDetail = () => {
+const ProductDetail = (props) => {
+    console.log(props)
     return <Container>test</Container>
 }
 
