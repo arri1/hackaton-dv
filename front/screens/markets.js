@@ -2,9 +2,10 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 import {useQuery} from '@apollo/react-hooks'
 import {ScrollView, TouchableOpacity, View} from 'react-native'
-import Card from './../components/card'
 import {GET_BUSINESS} from "../gqls/business/queries"
 import LoadingBar from "../components/loadingBar"
+import {useNavigation} from '@react-navigation/native';
+import Card from "../components/card"
 
 const Container = styled(View)`
     align-items: center;
@@ -18,7 +19,8 @@ const MainCard = styled(View)`
     flex: 1;
 `
 
-const Markets = ({navigation}) => {
+const Markets = () => {
+    const navigation = useNavigation()
     const [data, setData] = useState([])
     const {loading} = useQuery(GET_BUSINESS, {
         onCompleted: ({findManyBusiness}) => {
@@ -38,7 +40,7 @@ const Markets = ({navigation}) => {
                                 key={item.id}
                                 onPress={() => {
                                     navigation.navigate('MarketDetail', {
-                                        businessId:item.id,
+                                        businessId: item.id,
                                         name: item.name,
                                         description: item.description,
                                         type: item.type,

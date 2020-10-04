@@ -29,13 +29,14 @@ const Login = ({navigation}) => {
     const [password, setPassword] = useState()
 
     const {loading} = useQuery(USER, {
-        onCompleted: () => {
+        onCompleted: (data) => {
+            console.log('data',data)
             navigation.replace('Main')
         },
         onError: () => {
 
         },
-        fetchPolicy:'cache-first'
+        fetchPolicy:'network-only'
     })
 
     const [onAuth, {loading: authLoading}] = useMutation(AUTH, {

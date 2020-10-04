@@ -2,6 +2,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import Markets from '../screens/markets'
 import Card from '../navigators/card'
+import MarketDetail from "../screens/marketDetail"
 
 const Stack = createStackNavigator()
 const MarketNavigator = () => {
@@ -11,7 +12,7 @@ const MarketNavigator = () => {
             <Stack.Screen
                 name={'MarketDetail'}
                 options={() => ({ title: 'Магазин' })}
-                component={Card}
+                component={MarketDetail}
             />
         </Stack.Navigator>
     )

@@ -1,7 +1,7 @@
-import React, {useCallback, useState} from 'react'
+import React, {useState} from 'react'
 import {Button, ScrollView, Text, TouchableOpacity, View} from 'react-native'
 import styled from 'styled-components'
-import {useApolloClient, useMutation} from '@apollo/react-hooks'
+import {useApolloClient, useMutation, useQuery} from '@apollo/react-hooks'
 import {ADD_ORDER} from "../gqls/order/mutations"
 import LoadingBar from "../components/loadingBar"
 import {USER} from "../gqls/user/queries"
@@ -14,17 +14,27 @@ const Container = styled(View)`
 
 const MarketDetail = ({navigation, route}) => {
     const apollo = useApolloClient()
-    const businessId = route.params.businessId
-    const {address, userId} = useCallback(async () => {
-        const {user} = await apollo.query({query: USER, fetchPolicy: 'cache-first', errorPolicy: 'ignore'})
-        return {
-            address: user.address,
-            userId: user.id
-        }
+
+    const func = async () => {
+        return await apollo.query({query: USER, fetchPolicy: 'cache-first', errorPolicy: 'ignore'})
+
+    }
+
+    const [address, setAddress] = useState('')
+    const [userId, setUserId] = useState('')
+    useQuery(USER, {
+        onCompleted: ({user}) => {
+            setAddress(user.address)
+            setUserId(user.id)
+        },
+        fetchPolicy: 'cache-first',
+        errorPolicy: 'ignore'
     })
 
+    const businessId = route.params?.businessId
+    const products = route.params?.products
+
     const [selectedItems, setSelectedItems] = useState([])
-    navigation.setOptions({title: route.params.name})
 
     const [createOrder, {loading}] = useMutation(ADD_ORDER, {
         onCompleted: () => {
@@ -36,8 +46,6 @@ const MarketDetail = ({navigation, route}) => {
     })
     if (loading)
         return <LoadingBar/>
-
-    const products = route.params.products
     return (
         <Container>
             <ScrollView style={{flex: 1}}>
@@ -60,9 +68,10 @@ const MarketDetail = ({navigation, route}) => {
                                 key={item.id}
                                 onPress={() => {
                                     if (selectedItems.includes(item.id)) {
-                                        setSelectedItems(selectedItems.pop(item.id))
+                                        setSelectedItems(selectedItems.filter(i => item.id !== i))
                                         return null
                                     }
+
                                     setSelectedItems([...selectedItems, item.id])
                                 }}
                             >
@@ -93,19 +102,24 @@ const MarketDetail = ({navigation, route}) => {
             </ScrollView>
             <Button
                 onPress={() => {
+                    console.log('userId', userId)
                     createOrder({
                         variables: {
                             data: {
-                                address,
+                                address: address ? address : 'адрес не указан',
                                 comment: 'ух ты!',
                                 status: 'AWAITED',
                                 business: {connect: {id: businessId}},
                                 user: {connect: {id: userId}},
                                 products: {
-                                    create:{
-                                        count:1,
-                                        product:{connect:{id:''}}
-                                    }
+                                    create: selectedItems.map((item) => {
+                                        return {
+                                            count: 1,
+                                            product: {connect: {id: item}}
+
+                                        }
+
+                                    })
                                 }
                             }
                         }
