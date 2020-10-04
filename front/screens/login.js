@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 import {Button, TextInput, View} from "react-native"
 import {Title} from "../components/textStyle"
+import  {useMutation} from '@apollo/react-hooks'
 
 const Contianer = styled(View)`
     flex: 1;
@@ -23,6 +24,7 @@ const Login = ({navigation}) => {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
 
+    [onAuth]= useMutation()
 
     return (
         <Contianer>
