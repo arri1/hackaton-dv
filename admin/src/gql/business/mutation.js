@@ -1,14 +1,14 @@
 import gql from 'graphql-tag'
 
 export const REGISTRATION_BUSINESS = gql`
-    mutation ($data:RegistrationBusinessInput!){
-        registrationOneBusiness(data: $data){
+    mutation($data: RegistrationBusinessInput!) {
+        registrationOneBusiness(data: $data) {
             token
-            business{
-                name,
-                login,
+            business {
+                name
+                login
                 location
-                address,
+                address
                 id
                 createdAt
                 updatedAt
@@ -18,15 +18,34 @@ export const REGISTRATION_BUSINESS = gql`
         }
     }
 `
-export const AUTH_BUSINESS = gql`
-    mutation ($data:AuthBusinessInput!){
-        authBusiness(data: $data){
-            token
+
+export const UPDATE_BUSSINESS = gql`
+    mutation ($where:BusinessWhereUniqueInput! $data:BusinessUpdateInput!){
+        businessWhereUniqueInput(where: $where data:$data) {
             business{
-                name,
-                login,
+                id
+                createdAt
+                updatedAt
+                login
+                name
                 location
-                address,
+                description
+                type
+                address
+                products
+                orders
+    }
+`
+
+export const AUTH_BUSINESS = gql`
+    mutation($data: AuthBusinessInput!) {
+        authBusiness(data: $data) {
+            token
+            business {
+                name
+                login
+                location
+                address
                 id
                 createdAt
                 updatedAt

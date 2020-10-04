@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import { Title } from '../components/textStyled'
 import { message, Spin, Input, Button } from 'antd'
 import { Content } from '../components/loginStyle'
-import { BUSINESS } from '../gql/business/query'
+import { BUSSIN, BUSINESS } from '../gql/business/query'
 import { useLazyQuery, useMutation, useQuery, useApolloClient } from '@apollo/react-hooks'
-import { REGISTRATION_BUSINESS } from '../gql/business/mutation'
+import { UPDATE_BUSSINESS } from '../gql/business/mutation'
 
 const Container = styled.div`
     display: flex;
@@ -16,22 +16,23 @@ const Container = styled.div`
 const Home = () => {
     const client = useApolloClient()
 
-    const [onRegister, { loading }] = useMutation(REGISTRATION_BUSINESS, {
-        onCompleted: ({ registrationOneBusiness: { business, token } }) => {
+    const [onRegister, { loading }] = useMutation(UPDATE_BUSSINESS, {
+        onCompleted: ({ businessWhereUniqueInput: { business, token } }) => {
             localStorage.setItem('token', token)
-            client.writeQuery({ query: BUSINESS, data: { business } })
+            client.writeQuery({ query: BUSSIN, data: { business } })
             message.success('все хорошо')
         },
         onError: (err) => {
-            message.error('что-то пошло не так')
+            console.log('err', err)
         }
     })
-    const [userData, setUserData] = useState([])
-    const [name, setName] = useState([])
-    const [login, setLogin] = useState([])
-    const [description, setDescription] = useState([])
-    const [address, setAdress] = useState([])
-    const [type, setType] = useState([])
+    const [userData, setUserData] = useState()
+    const [name, setName] = useState()
+    const [login, setLogin] = useState()
+    const [description, setDescription] = useState()
+    const [address, setAdress] = useState()
+    const [type, setType] = useState()
+    const [password, setPassword] = useState()
 
     useQuery(BUSINESS, {
         onCompleted: ({ business }) => {
@@ -81,7 +82,8 @@ const Home = () => {
                     type,
                     address,
                     description,
-                    login
+                    login,
+                    password
                 }
             }
         })
@@ -98,6 +100,14 @@ const Home = () => {
                     value={name}
                     onChange={(event) => {
                         setName(event.target.value)
+                    }}
+                />
+                <Input
+                    style={{ marginTop: 15 }}
+                    placeholder={'password'}
+                    value={password}
+                    onChange={(event) => {
+                        setPassword(event.target.value)
                     }}
                 />
                 <Input
