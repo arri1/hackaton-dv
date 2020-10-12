@@ -22,7 +22,6 @@ export const REGISTRATION_BUSINESS = gql`
 export const UPDATE_BUSSINESS = gql`
     mutation($where: BusinessWhereUniqueInput!, $data: BusinessUpdateInput!) {
         updateOneBusiness(where: $where, data: $data) {
-            Business {
                 id
                 createdAt
                 updatedAt
@@ -34,7 +33,6 @@ export const UPDATE_BUSSINESS = gql`
                 address
                 products
                 orders
-            }
         }
     }
 `
