@@ -1,0 +1,23 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Card {
+    id              String          @id @default(cuid())
+    title           String
+    icon            File
+    color           String          @default("168FFF")
+}
+
+model File {
+    id              String          @id @default(cuid())
+    path            String
+}

@@ -1,0 +1,16 @@
+version: '3.0'
+services:
+  postgres:
+    image: postgres
+    restart: always
+    container_name: postgres-docker
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: zakaz
+      POSTGRES_USER: zakaz
+      POSTGRES_PASSWORD: zakaz
+    volumes:
+      - ./data:/var/lib/postgresql/data
+volumes:
+  postgres:

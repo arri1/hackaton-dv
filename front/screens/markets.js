@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { Text, TouchableOpacity, View, ScrollView } from 'react-native'
 import Card from './../components/card'
 const Container = styled(View)`
-    align-items: center;
     flex-direction: row;
     flex: 1;
     justify-content: center;
@@ -18,9 +17,11 @@ const data = [
     {
         id: '3122',
         login: 'gold9208',
-        name: 'Пятерочка',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
+        name: 'Квартира',
+        type: 'icon',
+        description: 'Аренда + коммунальные платежи',
+        cost:'30.000₽',
+        time:'Завтра',
         address: 'Lenina 1',
         location: 'Vlad',
         product: 'Apple',
@@ -29,97 +30,11 @@ const data = [
     {
         id: '3122',
         login: 'gold9208',
-        name: 'Пятерочка',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
-        address: 'Lenina 1',
-        location: 'Vlad',
-        product: 'Apple',
-        orders: 'Meet'
-    },
-    {
-        id: '3122',
-        login: 'gold9208',
-        name: 'Пятерочка',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
-        address: 'Lenina 1',
-        location: 'Vlad',
-        product: 'Apple',
-        orders: 'Meet'
-    },
-    {
-        id: '3122',
-        login: 'gold9208',
-        name: 'Пятерочка',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
-        address: 'Lenina 1',
-        location: 'Vlad',
-        product: 'Apple',
-        orders: 'Meet'
-    },
-    {
-        id: '3122',
-        login: 'gold9208',
-        name: 'Пятерочка',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
-        address: 'Lenina 1',
-        location: 'Vlad',
-        product: 'Apple',
-        orders: 'Meet'
-    },
-    {
-        id: '3122',
-        login: 'gold9208',
-        name: 'Пятерочка',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
-        address: 'Lenina 1',
-        location: 'Vlad',
-        product: 'Apple',
-        orders: 'Meet'
-    },
-    {
-        id: '3122',
-        login: 'gold9208',
-        name: 'Пятерочка',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
-        address: 'Lenina 1',
-        location: 'Vlad',
-        product: 'Apple',
-        orders: 'Meet'
-    },
-    {
-        id: '3122',
-        login: 'gold9208',
-        name: 'Пятерочка',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
-        address: 'Lenina 1',
-        location: 'Vlad',
-        product: 'Apple',
-        orders: 'Meet'
-    },
-    {
-        id: '3122',
-        login: 'gold9208',
-        name: 'Пятерочка',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
-        address: 'Lenina 1',
-        location: 'Vlad',
-        product: 'Apple',
-        orders: 'Meet'
-    },
-    {
-        id: '3122',
-        login: 'gold9208',
-        name: 'Пятерочка',
-        type: 'Продукты',
-        description: 'Мы продаем какие-то продукты.Звоните по какому-то номеру!',
+        name: 'Обслуживание',
+        type: 'icon',
+        description: 'Валютный счет в банке',
+        cost:'10€',
+        time:'Через 29 дней',
         address: 'Lenina 1',
         location: 'Vlad',
         product: 'Apple',
@@ -133,8 +48,7 @@ const Markets = ({ navigation }) => {
                 <TouchableOpacity
                     onPress={() => {
                         navigation.navigate('MarketDetail')
-                    }}
-                >
+                    }}>
                     <MainCard>
                         {data.map((item) => {
                             return (
@@ -142,6 +56,8 @@ const Markets = ({ navigation }) => {
                                     name={item.name}
                                     description={item.description}
                                     type={item.type}
+                                    cost={item.cost}
+                                    time={item.time}
                                 />
                             )
                         })}

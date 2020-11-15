@@ -1,8 +1,0 @@
-/prisma/data
-/prisma/data/**/*
-data
-/prisma/migrations
-node_modules
-.graphqlconfig
-schema.graphql
-/newGraphql

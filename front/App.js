@@ -4,6 +4,8 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import styled from 'styled-components'
 import MarketNavigator from './navigators/marketNavigator'
+import Switch from 'react-native-dark-mode-switch';
+import { Appearance } from 'react-native';
 
 const { width, height } = Dimensions.get('screen')
 
@@ -17,17 +19,16 @@ const Tab = createBottomTabNavigator()
 const App = () => {
     return (
         <Container>
-
             <NavigationContainer>
                 <Tab.Navigator>
-                    <Tab.Screen name="MarketsNavigator" component={MarketNavigator} />
+                    <Tab.Screen name="iOS14.Test" component={MarketNavigator} />
                 </Tab.Navigator>
             </NavigationContainer>
-
         </Container>
+ 
 
     )
 }
-export default App
+export default App;
 
 

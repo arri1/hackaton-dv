@@ -1,2 +1,0 @@
-BUSINESS_SECRET=business
-USER_SECRET=user
